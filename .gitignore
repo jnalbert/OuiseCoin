@@ -1,2 +1,5 @@
 node_modules/
-src/BlockChain/*.js
+src/BlockChain/block.js/
+src/BlockChain/blockChain.js/
+src/BlockChain/test.js/
+src/BlockChain/types.js/
