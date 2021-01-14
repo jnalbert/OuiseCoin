@@ -1,17 +1,19 @@
 import {Block} from "./block";
-import {BlockChainType, BlockData, Transaction} from "./types"
+import { BlockChainType, Transactions, Transaction } from './types';
 
 export class BlockChain {
     blockChain: BlockChainType;
     difficulty: number;
-    waitingTransactions: BlockData
+    pendingTransaction: Transactions
+    miningReward: number
     nodes: any
 
     constructor() {
         this.nodes = new Set()
         this.blockChain = [this.createGenesisBlock()]
-        this.waitingTransactions = []
+        this.pendingTransaction = []
         this.difficulty = 4;
+        this.miningReward = 100;
     }
 
     private createGenesisBlock() {
@@ -28,17 +30,17 @@ export class BlockChain {
     }
 
     addNewTransaction(sender: string, receiver: string, amount: number) {
-        this.waitingTransactions.push({
+        this.pendingTransaction.push({
             sender: sender,
             receiver: receiver,
             amount: amount
         })
-        return "Block transaction will be in" + (this.getLatestBlock().index - 1)
+        return "Block transaction will be in" + (this.getLatestBlock().index + 1)
         
     }
 
     getTransactions() {
-        return this.waitingTransactions;
+        return this.pendingTransaction;
     }
 
     getNodes() {
@@ -61,11 +63,31 @@ export class BlockChain {
         }
     }
 
-    mineNewBlock() {
+    mineNewBlock(miningRewardAddress: string) {
+        this.addNewTransaction("block", miningRewardAddress, this.miningReward)
+
         const oldBlock = this.getLatestBlock();
-        const newBlock = new Block(oldBlock.index + 1, this.waitingTransactions, oldBlock.hash);
+        const newBlock = new Block(oldBlock.index + 1, this.pendingTransaction, oldBlock.hash);
+
         newBlock.proofOfWork(this.difficulty);
         this.blockChain.push(newBlock);
-        this.waitingTransactions = []
+
+        this.pendingTransaction = []
+    }
+
+    getBalanceOfAddress(address: string) {
+        let balance = 0;
+
+        for (const block of this.blockChain) {
+            for (const transaction of block.transactions) {
+                if (transaction.sender === address) {
+                    balance -= transaction.amount;
+                }
+                if (transaction.receiver === address) {
+                    balance += transaction.amount
+                }
+            }
+        }
+        return balance;
     }
 }

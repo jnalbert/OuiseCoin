@@ -57,8 +57,8 @@
       // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
     },
     "include": [
-      "src/*"
-, "src/output/blockChain.js", "src/output/block.js", "src/output/types.js", "src/output/test.js", "src/BlockChain/types.ts", "src/BlockChain/test.ts", "src/BlockChain/test.js", "src/BlockChain/types.js", "src/BlockChain/block.js"    ],
+      "src/**/*"
+    ],
     "exclude": [
       "tests/*"
     ]

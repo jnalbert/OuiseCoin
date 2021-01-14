@@ -6,6 +6,6 @@ export interface Transaction {
     amount: number
 }
 
-export type BlockData = Transaction[]
+export type Transactions = Transaction[]
 
 export type BlockChainType = Block[];
