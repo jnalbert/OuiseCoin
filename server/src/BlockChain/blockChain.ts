@@ -5,14 +5,14 @@ import { BlockChainType, Transactions} from './types';
 export class BlockChain {
     blockChain: BlockChainType;
     difficulty: number;
-    pendingTransaction: Transactions
+    pendingTransactions: Transactions
     miningReward: number
     nodes: any
 
     constructor() {
         this.nodes = new Set()
         this.blockChain = [this.createGenesisBlock()]
-        this.pendingTransaction = []
+        this.pendingTransactions = []
         this.difficulty = 4;
         this.miningReward = 100;
     }
@@ -32,13 +32,13 @@ export class BlockChain {
 
     addNewTransaction(sender: string, receiver: string, amount: number) {
         const newTransaction = new Transaction(sender, receiver, amount)
-        this.pendingTransaction.push(newTransaction)
+        this.pendingTransactions.push(newTransaction)
         return "Block transaction will be in" + (this.getLatestBlock().index + 1)
         
     }
 
     getTransactions() {
-        return this.pendingTransaction;
+        return this.pendingTransactions;
     }
 
     getNodes() {
@@ -49,6 +49,10 @@ export class BlockChain {
         for (let i = 1; i < this.blockChain.length; i++) {
             const currentBlock = this.blockChain[i];
             const prevBlock = this.blockChain[i - 1];
+
+            if(!currentBlock.hasValidTransactions()) {
+                return false;
+            }
             
             if(currentBlock.hash !== currentBlock.computeHash()) {
                 return false;
@@ -65,12 +69,12 @@ export class BlockChain {
         this.addNewTransaction("BlockChain", miningRewardAddress, this.miningReward)
 
         const oldBlock = this.getLatestBlock();
-        const newBlock = new Block(oldBlock.index + 1, this.pendingTransaction, oldBlock.hash);
+        const newBlock = new Block(oldBlock.index + 1, this.pendingTransactions, oldBlock.hash);
 
         newBlock.proofOfWork(this.difficulty);
         this.blockChain.push(newBlock);
 
-        this.pendingTransaction = []
+        this.pendingTransactions = []
     }
 
     getBalanceOfAddress(address: string) {
