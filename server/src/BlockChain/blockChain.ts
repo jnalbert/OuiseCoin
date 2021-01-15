@@ -30,10 +30,13 @@ export class BlockChain {
         return this.blockChain;
     }
 
-    addNewTransaction(sender: string, receiver: string, amount: number) {
-        const newTransaction = new Transaction(sender, receiver, amount)
-        this.pendingTransactions.push(newTransaction)
-        return "Block transaction will be in" + (this.getLatestBlock().index + 1)
+    addTransaction(transaction: Transaction) {
+        if(!transaction.isValid) {
+            throw new Error("Can't add an invalid transaction to the cain")
+        }
+ 
+        this.pendingTransactions.push(transaction)
+        
         
     }
 
@@ -66,7 +69,7 @@ export class BlockChain {
     }
 
     mineNewBlock(miningRewardAddress: string) {
-        this.addNewTransaction("BlockChain", miningRewardAddress, this.miningReward)
+        this.addTransaction(new Transaction("BlockChain", miningRewardAddress, this.miningReward))
 
         const oldBlock = this.getLatestBlock();
         const newBlock = new Block(oldBlock.index + 1, this.pendingTransactions, oldBlock.hash);
