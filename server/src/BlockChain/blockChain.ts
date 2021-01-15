@@ -1,5 +1,6 @@
 import {Block} from "./block";
-import { BlockChainType, Transactions, Transaction } from './types';
+import {Transaction} from './transaction'
+import { BlockChainType, Transactions} from './types';
 
 export class BlockChain {
     blockChain: BlockChainType;
@@ -17,7 +18,7 @@ export class BlockChain {
     }
 
     private createGenesisBlock() {
-        return new Block(0, [{sender: "Start", receiver: "start", amount: 0}], " ");
+        return new Block(0, [new Transaction("start", "start", 0)], " ");
 
     }
 
@@ -30,11 +31,8 @@ export class BlockChain {
     }
 
     addNewTransaction(sender: string, receiver: string, amount: number) {
-        this.pendingTransaction.push({
-            sender: sender,
-            receiver: receiver,
-            amount: amount
-        })
+        const newTransaction = new Transaction(sender, receiver, amount)
+        this.pendingTransaction.push(newTransaction)
         return "Block transaction will be in" + (this.getLatestBlock().index + 1)
         
     }
