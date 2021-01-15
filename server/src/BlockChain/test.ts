@@ -16,7 +16,7 @@ newChain.mineNewBlock("Justin")
 
 console.log(newChain.getFullLedger())
 
-console.log("Justin blance: " + newChain.getBalanceOfAddress("Justin"))
+console.log(JSON.stringify("Justin blance: " + newChain.getBalanceOfAddress("Justin")))
 
 
 
