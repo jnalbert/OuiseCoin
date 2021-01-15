@@ -62,7 +62,7 @@ export class BlockChain {
     }
 
     mineNewBlock(miningRewardAddress: string) {
-        this.addNewTransaction("block", miningRewardAddress, this.miningReward)
+        this.addNewTransaction("BlockChain", miningRewardAddress, this.miningReward)
 
         const oldBlock = this.getLatestBlock();
         const newBlock = new Block(oldBlock.index + 1, this.pendingTransaction, oldBlock.hash);
