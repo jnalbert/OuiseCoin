@@ -8,8 +8,11 @@ const myWalletAddress = myKey.getPublic('hex')
 
 const newChain = new BlockChain();
 
-const tx1 = new Transaction(myWalletAddress, "This is a test", 10)
+const tx1 = new Transaction(myWalletAddress, "this is a test", 10)
 tx1.signTransaction(myKey)
+tx1.amount = 100;
+
+// console.log("Is transaction valid: " + tx1.isValid())
 
 newChain.addTransaction(tx1);
 

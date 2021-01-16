@@ -20,6 +20,7 @@ export class Transaction {
         return SHA256(this.sender + this.receiver + this.amount + this.date).toString()
     }
 
+
     signTransaction(signingKey: any) {
         if (signingKey.getPublic('hex') !== this.sender) {
             throw new Error("You can't sign transactions they are no yours")

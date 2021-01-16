@@ -31,7 +31,7 @@ export class BlockChain {
     }
 
     addTransaction(transaction: Transaction) {
-        if(!transaction.isValid) {
+        if(!transaction.isValid()) {
             throw new Error("Can't add an invalid transaction to the cain")
         }
  
@@ -69,6 +69,7 @@ export class BlockChain {
     }
 
     mineNewBlock(miningRewardAddress: string) {
+
         this.addTransaction(new Transaction("BlockChain", miningRewardAddress, this.miningReward))
 
         const oldBlock = this.getLatestBlock();
