@@ -96,4 +96,16 @@ export class BlockChain {
         }
         return balance;
     }
+
+    replaceChain(newChain: BlockChain) {
+        if(newChain.blockChain.length <= this.blockChain.length) {
+            throw new Error("The chian needs to be longer than the current one")
+        }
+
+        if(!newChain.checkChainValidity()) {
+            throw new Error("Can't replace with an invalid chain")
+        }
+
+        this.blockChain = newChain.blockChain;
+    }
 }
