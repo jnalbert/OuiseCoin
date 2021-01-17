@@ -1,6 +1,9 @@
 const express = require('express');
 
 import {BlockChain} from '../BlockChain/blockChain'
+import { Transaction } from '../BlockChain/transaction';
+
+
 const morgan = require("morgan");
 const cors = require("cors");
 const errorhandler = require('errorhandler');
@@ -17,7 +20,52 @@ app.use(morgan('dev'))
 app.use(errorhandler())
 app.use(bodyParser.json())
 
+app.get('/getLedger', (req: any, res: any, next: any) => {
+    try {
+        res.status(200).send(blockChain.getFullLedger())
+    } catch (err) {
+        next(err)
+    }
+    
+})
 
+app.post('/addTransaction', (req: any, res: any, next: any) => {
+    // console.log(req.body.transaction)
+    // res.sendStatus(201)
+    try {
+        const data = JSON.parse(req.body.transaction)
+        const newTx: Transaction = new Transaction(data.sender, data.receiver, data.amount, data.signature)
+
+        // console.log("HERE")
+        // console.log(newTx)
+        blockChain.addTransaction(newTx);
+        // console.log(blockChain.pendingTransactions)
+        res.sendStatus(201)
+    } catch (err) {
+        next(err)
+    }
+})
+
+app.get('/mineBlock/:miningAddress', (req: any, res: any, next: any) => {
+    try {
+        blockChain.mineNewBlock(req.params.miningAddress)
+        res.status(200).send(blockChain.getLatestBlock())
+    } catch (err) {
+        next(err)
+    }
+})
+
+app.get('/getAddressBalance/:pubAddress', (req: any, res: any, next: any) => {
+    try {
+        const pubAddress = req.params.pubAddress
+        // console.log("HERE")
+        // console.log(typeof pubAddress)
+        const balance = blockChain.getBalanceOfAddress(pubAddress)
+        res.status(200).send({balance})
+    } catch (err) {
+        next(err)
+    }
+})
 
 
 app.listen(PORT, () => {

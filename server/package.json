@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "crypto-js": "^4.0.0",
@@ -16,5 +17,11 @@
   },
   "scripts": {
     "server": "npx nodemon"
-  }
+  },
+  "name": "server",
+  "version": "1.0.0",
+  "description": "This is the server for the blockchian",
+  "main": "src",
+  "author": "Justin Albert",
+  "license": "ISC"
 }
