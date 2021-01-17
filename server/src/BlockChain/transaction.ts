@@ -9,11 +9,14 @@ export class Transaction {
     date: Date
     signature: any
 
-    constructor(sender: string, receiver: string, amount: number) {
+    constructor(sender: string, receiver: string, amount: number, signature?: string) {
         this.sender = sender;
         this.receiver = receiver
         this.amount = amount
         this.date = new Date
+        if (signature) {
+            this.signature = signature;
+        }
     }
 
     calculateHash(): string {
@@ -43,4 +46,3 @@ export class Transaction {
         
     }
 }
-
