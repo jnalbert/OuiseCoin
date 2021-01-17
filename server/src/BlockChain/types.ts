@@ -10,3 +10,4 @@ import {Transaction} from './transaction'
 export type Transactions = Transaction[]
 
 export type BlockChainType = Block[];
+

@@ -109,3 +109,5 @@ export class BlockChain {
         this.blockChain = newChain.blockChain;
     }
 }
+
+
