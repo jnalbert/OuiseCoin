@@ -13,7 +13,7 @@ export class BlockChain {
         this.nodes = new Set()
         this.blockChain = [this.createGenesisBlock()]
         this.pendingTransactions = []
-        this.difficulty = 4;
+        this.difficulty = 2; // CHANGE TO FOUR WHEN DONE TESTTING 
         this.miningReward = 100;
     }
 
