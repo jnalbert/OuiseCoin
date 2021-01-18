@@ -2,14 +2,14 @@ const express = require('express');
 
 import {BlockChain} from '../BlockChain/blockChain'
 import { Transaction } from '../BlockChain/transaction';
-
+import {makeChainFromJSON} from './util'
 
 const morgan = require("morgan");
 const cors = require("cors");
 const errorhandler = require('errorhandler');
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 
-const blockChain = new BlockChain();
+let blockChain: BlockChain = new BlockChain();
 
 const app = express();
 const PORT = process.env.HTTP_PORT || 4000;
@@ -61,7 +61,19 @@ app.get('/getAddressBalance/:pubAddress', (req: any, res: any, next: any) => {
         // console.log("HERE")
         // console.log(typeof pubAddress)
         const balance = blockChain.getBalanceOfAddress(pubAddress)
-        res.status(200).send({balance})
+        res.status(200).send({balance: balance})
+    } catch (err) {
+        next(err)
+    }
+})
+
+app.post('/replaceChain', (req: any, res: any, next: any) => {
+    try {
+        const data = JSON.parse(req.body.newChian)
+        const newChain = makeChainFromJSON(data)
+        
+        blockChain = newChain
+        res.sendStatus(201)
     } catch (err) {
         next(err)
     }
@@ -69,7 +81,7 @@ app.get('/getAddressBalance/:pubAddress', (req: any, res: any, next: any) => {
 
 
 app.listen(PORT, () => {
-    console.log('The server is listening on port:' + PORT);
+    console.log('The server is listening on port: ' + PORT);
 })
 
 // HTTP_PORT = 3002 npm run dev

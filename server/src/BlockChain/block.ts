@@ -5,7 +5,7 @@ import { Transactions } from './types';
 
 export class Block {
     index: number;
-    timeStamp: Date;
+    date: Date;
     transactions: Transactions;
     prevHash: string;
     hash: string;
@@ -13,7 +13,7 @@ export class Block {
 
     constructor(index: number, transactions: Transactions, prevHash=" ") {
         this.index = index;
-        this.timeStamp = new Date;
+        this.date = new Date;
         this.transactions =  transactions;
         this.prevHash = prevHash;
         this.nonce = 0;
@@ -22,7 +22,7 @@ export class Block {
     }
 
     computeHash() {
-        return SHA256(this.index + this.timeStamp.toString() + JSON.stringify(this.transactions) + this.prevHash + this.nonce).toString();
+        return SHA256(this.index + this.date.toString() + JSON.stringify(this.transactions) + this.prevHash + this.nonce).toString();
     }
 
     proofOfWork(difficulty: number) {
