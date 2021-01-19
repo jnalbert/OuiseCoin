@@ -1,8 +1,15 @@
-const express = require('express');
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const ioClient = require('socket.io-client')
+
+const axios = require('axios');
+
 
 import {BlockChain} from '../BlockChain/blockChain'
 import { Transaction } from '../BlockChain/transaction';
 import {makeChainFromJSON} from './util'
+import { socketListeners } from './socketListeners';
 
 const morgan = require("morgan");
 const cors = require("cors");
@@ -11,7 +18,7 @@ const bodyParser = require('body-parser');
 
 let blockChain: BlockChain = new BlockChain();
 
-const app = express();
+
 const PORT = process.env.HTTP_PORT || 4000;
 
 // middle ware
@@ -79,8 +86,37 @@ app.post('/replaceChain', (req: any, res: any, next: any) => {
     }
 })
 
+app.post("/nodes", (req: any, res: any, next: any) => {
+    try {
+        const {host, port} = req.body
+        const {addedBack} = req.query
 
-app.listen(PORT, () => {
+        const address = `http://${host}:${port}`
+
+        const socketNode = socketListeners(ioClient(address), blockChain)
+       
+        blockChain.addNodes(socketNode);
+       
+        if (addedBack === 'true') {
+            console.info(`Added node ${address} back`)
+            res.sendStatus(201)
+        } else {
+            axios.post(`${address}/nodes?addedBack=true`, {
+                host: req.hostname,
+                port: PORT
+            })
+            console.info(`Added node ${address}`)
+            res.sendStatus(201)
+        }
+
+    } catch (err) {
+        next(err)
+    }
+})
+
+
+
+http.listen(PORT, () => {
     console.log('The server is listening on port: ' + PORT);
 })
 

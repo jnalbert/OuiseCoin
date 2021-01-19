@@ -10,7 +10,7 @@ export class BlockChain {
     nodes: any
 
     constructor() {
-        this.nodes = new Set()
+        this.nodes = []
         this.blockChain = [this.createGenesisBlock()]
         this.pendingTransactions = []
         this.difficulty = 2; // CHANGE TO FOUR WHEN DONE TESTTING 
@@ -48,6 +48,10 @@ export class BlockChain {
         return this.nodes;
     }
 
+    addNodes(node: any) {
+        this.nodes.push(node)
+    }
+
     checkChainValidity() {
         for (let i = 1; i < this.blockChain.length; i++) {
             const currentBlock = this.blockChain[i];
@@ -75,8 +79,12 @@ export class BlockChain {
         const oldBlock = this.getLatestBlock();
         const newBlock = new Block(oldBlock.index + 1, this.pendingTransactions, oldBlock.hash);
 
-        newBlock.proofOfWork(this.difficulty);
-        this.blockChain.push(newBlock);
+        process.env.STOP_MINING = "continue";
+        const response = newBlock.proofOfWork(this.difficulty);
+
+        if (response === "add") {
+            this.blockChain.push(newBlock);
+        }
 
         this.pendingTransactions = []
     }

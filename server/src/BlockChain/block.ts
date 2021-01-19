@@ -26,14 +26,23 @@ export class Block {
     }
 
     proofOfWork(difficulty: number) {
-        while(this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
+        while( process.env.STOP_MINING === 'continue' && this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
             this.nonce++;
             this.hash = this.computeHash();
             // console.log(this.nonce);
             // console.log(this)
         }
+        if (this.hash.substring(0, difficulty) === Array(difficulty + 1).join("0") && process.env.STOP_MINING == 'continue') {
+            process.env.STOP_MINING = 'stop'
 
-        console.log("Block mined: " + this.hash);
+            console.log("Block mined: " + this.hash);
+            return "add"
+        }
+        if (process.env.STOP_MINING === "stop") {
+            return "Don't Add"
+        } 
+
+       
     }
 
     hasValidTransactions() {
