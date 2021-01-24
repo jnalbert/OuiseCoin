@@ -16,7 +16,9 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
-    "@types/node": "^14.14.20"
+    "@types/node": "^14.14.20",
+    "@types/socket.io": "^2.1.12",
+    "@types/socket.io-client": "^1.4.35"
   },
   "scripts": {
     "server": "npx nodemon"
