@@ -1,15 +1,19 @@
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+
 const ioClient = require('socket.io-client')
 
 const axios = require('axios');
 
+const SocketActions = require('./constants.ts')
 
 import {BlockChain} from '../BlockChain/blockChain'
 import { Transaction } from '../BlockChain/transaction';
 import {makeChainFromJSON} from './util'
 import { socketListeners } from './socketListeners';
+import { response } from 'express';
+
 
 const morgan = require("morgan");
 const cors = require("cors");
@@ -41,11 +45,12 @@ app.post('/addTransaction', (req: any, res: any, next: any) => {
     // res.sendStatus(201)
     try {
         const data = JSON.parse(req.body.transaction)
-        const newTx: Transaction = new Transaction(data.sender, data.receiver, data.amount, data.signature)
+        io.emit(SocketActions.ADD_TRANSACTION, data);
+        // const newTx: Transaction = new Transaction(data.sender, data.receiver, data.amount, data.signature)
 
-        // console.log("HERE")
-        // console.log(newTx)
-        blockChain.addTransaction(newTx);
+        // // console.log("HERE")
+        // // console.log(newTx)
+        // blockChain.addTransaction(newTx);
         // console.log(blockChain.pendingTransactions)
         res.sendStatus(201)
     } catch (err) {
@@ -88,22 +93,20 @@ app.post('/replaceChain', (req: any, res: any, next: any) => {
 
 app.post("/nodes", (req: any, res: any, next: any) => {
     try {
-        const {host, port} = req.body
+        const address = req.body.address
+        
         const {addedBack} = req.query
-
-        const address = `http://${host}:${port}`
 
         const socketNode = socketListeners(ioClient(address), blockChain)
        
-        blockChain.addNodes(socketNode);
+        blockChain.addNodes(address);
        
         if (addedBack === 'true') {
             console.info(`Added node ${address} back`)
             res.sendStatus(201)
         } else {
             axios.post(`${address}/nodes?addedBack=true`, {
-                host: req.hostname,
-                port: PORT
+                address: `http://${req.hostname}:${PORT}`
             })
             console.info(`Added node ${address}`)
             res.sendStatus(201)
@@ -114,6 +117,14 @@ app.post("/nodes", (req: any, res: any, next: any) => {
     }
 })
 
+io.on('connection', (socket: any) => {
+    console.info(`Socket connected ID: ${socket.id}`)
+    io.on("disconnect", () => {
+        console.info(`Socket disconnect ID: ${socket.id}`)
+    })
+} )
+
+blockChain.addNodes(`http://localhost:${PORT}`)
 
 
 http.listen(PORT, () => {
