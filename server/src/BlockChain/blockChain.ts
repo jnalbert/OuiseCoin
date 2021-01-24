@@ -48,8 +48,13 @@ export class BlockChain {
         return this.nodes;
     }
 
-    addNodes(node: any) {
-        this.nodes.push(node)
+    addNodes(newNode: string) {
+        for(const node of this.nodes) {
+            if (node === newNode) {
+                return;
+            }
+        }
+        this.nodes.push(newNode)
     }
 
     checkChainValidity() {
