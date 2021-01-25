@@ -43,18 +43,21 @@ app.get('/getLedger', (req: any, res: any, next: any) => {
     
 })
 
-app.post('/addTransaction', (req: any, res: any, next: any) => {
+app.post('/addTransaction', async (req: any, res: any, next: any) => {
     // console.log(req.body.transaction)
     // res.sendStatus(201)
     try {
         const data = JSON.parse(req.body.transaction)
-        io.emit(SocketActions.ADD_TRANSACTION, data);
+        await io.emit(SocketActions.ADD_TRANSACTION, data);
         // const newTx: Transaction = new Transaction(data.sender, data.receiver, data.amount, data.signature)
 
         // // console.log("HERE")
         // // console.log(newTx)
         // blockChain.addTransaction(newTx);
-        console.log(blockChain.pendingTransactions)
+        setTimeout(() => {
+            console.log(blockChain.pendingTransactions)
+        }, 1000 )
+        
         res.sendStatus(201)
     } catch (err) {
         next(err)
