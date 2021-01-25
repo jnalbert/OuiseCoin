@@ -12,7 +12,7 @@ import {BlockChain} from '../BlockChain/blockChain'
 import { Transaction } from '../BlockChain/transaction';
 import {makeChainFromJSON} from './util'
 import { socketListeners } from './socketListeners';
-import { response } from 'express';
+
 
 
 const morgan = require("morgan");
@@ -24,6 +24,9 @@ let blockChain: BlockChain = new BlockChain();
 
 
 const PORT = process.env.HTTP_PORT || 4000;
+
+// Address of your api end
+const API_ADDRESS = `http://localhost:${PORT}`;
 
 // middle ware
 app.use(cors())
@@ -51,7 +54,7 @@ app.post('/addTransaction', (req: any, res: any, next: any) => {
         // // console.log("HERE")
         // // console.log(newTx)
         // blockChain.addTransaction(newTx);
-        // console.log(blockChain.pendingTransactions)
+        console.log(blockChain.pendingTransactions)
         res.sendStatus(201)
     } catch (err) {
         next(err)
@@ -106,7 +109,7 @@ app.post("/nodes", (req: any, res: any, next: any) => {
             res.sendStatus(201)
         } else {
             axios.post(`${address}/nodes?addedBack=true`, {
-                address: `http://${req.hostname}:${PORT}`
+                address: API_ADDRESS//`http://${req.hostname}:${PORT}`
             })
             console.info(`Added node ${address}`)
             res.sendStatus(201)
@@ -124,7 +127,12 @@ io.on('connection', (socket: any) => {
     })
 } )
 
-blockChain.addNodes(`http://localhost:${PORT}`)
+socketListeners(ioClient(API_ADDRESS), blockChain);
+
+// axios.post(`http://localhost:${PORT}/nodes?addedBack=true`, {
+//     address: `http://localhost:${PORT}`
+// })
+blockChain.addNodes(API_ADDRESS)
 
 
 http.listen(PORT, () => {
