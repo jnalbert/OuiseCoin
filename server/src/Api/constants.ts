@@ -1,4 +1,5 @@
 module.exports = {
     ADD_TRANSACTION: 'add_transaction',
-    STOP_MINING: 'stop_mining'
+    START_MINING: 'start_mining',
+    END_MINING: 'end_mining'
   };
