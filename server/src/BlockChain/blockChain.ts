@@ -8,13 +8,15 @@ export class BlockChain {
     pendingTransactions: Transactions
     miningReward: number
     nodes: any
+    ioServer: any
 
-    constructor() {
+    constructor(ioServer: any) {
         this.nodes = []
         this.blockChain = [this.createGenesisBlock()]
         this.pendingTransactions = []
         this.difficulty = 2; // CHANGE TO FOUR WHEN DONE TESTTING 
         this.miningReward = 100;
+        this.ioServer = ioServer;
     }
 
     private createGenesisBlock() {
@@ -87,11 +89,17 @@ export class BlockChain {
         process.env.STOP_MINING = "continue";
         const response = newBlock.proofOfWork(this.difficulty);
 
+        
         if (response === "add") {
             this.blockChain.push(newBlock);
         }
 
         this.pendingTransactions = []
+        if (response === "add") {
+            return true;
+        }
+        return false;
+        
     }
 
     getBalanceOfAddress(address: string) {

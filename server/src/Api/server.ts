@@ -20,7 +20,7 @@ const cors = require("cors");
 const errorhandler = require('errorhandler');
 const bodyParser = require('body-parser');
 
-let blockChain: BlockChain = new BlockChain();
+let blockChain: BlockChain = new BlockChain(io);
 
 
 const PORT = process.env.HTTP_PORT || 4000;
@@ -54,9 +54,9 @@ app.post('/addTransaction', async (req: any, res: any, next: any) => {
         // // console.log("HERE")
         // // console.log(newTx)
         // blockChain.addTransaction(newTx);
-        setTimeout(() => {
-            console.log(blockChain.pendingTransactions)
-        }, 1000 )
+        // setTimeout(() => {
+        //     console.log(blockChain.pendingTransactions)
+        // }, 1000 )
         
         res.sendStatus(201)
     } catch (err) {
@@ -64,10 +64,11 @@ app.post('/addTransaction', async (req: any, res: any, next: any) => {
     }
 })
 
-app.get('/mineBlock/:miningAddress', (req: any, res: any, next: any) => {
+app.post('/mineBlock/:miningAddress', async (req: any, res: any, next: any) => {
     try {
-        blockChain.mineNewBlock(req.params.miningAddress)
-        res.status(200).send(blockChain.getLatestBlock())
+        await io.emit(SocketActions.START_MINING, req.params.miningAddress);
+        // blockChain.mineNewBlock(req.params.miningAddress)
+        res.status(201);
     } catch (err) {
         next(err)
     }

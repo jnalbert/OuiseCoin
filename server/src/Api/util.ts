@@ -3,7 +3,7 @@ import { BlockChain } from '../BlockChain/blockChain';
 import { Transaction } from '../BlockChain/transaction';
 
 export const makeChainFromJSON = (jsonData: any) => {
-    let targetChain = new BlockChain();
+    let targetChain = new BlockChain(null);
     let newBlockList = []
     for (const block of jsonData.blockChain) {
         let transList = []
@@ -17,7 +17,7 @@ export const makeChainFromJSON = (jsonData: any) => {
 
         block.date = new Date(block.date)
         block.transactions = transList
-        
+
         target = Object.assign(target, block)
         newBlockList.push(target)
     }
