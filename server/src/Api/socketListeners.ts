@@ -17,6 +17,7 @@ export const socketListeners = (socket: any, blockChain: BlockChain) => {
 
     socket.on(SocketActions.START_MINING, (miningAddress: string) => {
         const response = blockChain.mineNewBlock(miningAddress);
+        console.log("DONE")
         if (response) {
             blockChain.ioServer.emit(SocketActions.END_MINING)
         }

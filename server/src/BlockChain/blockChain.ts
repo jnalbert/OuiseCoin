@@ -87,9 +87,10 @@ export class BlockChain {
         const newBlock = new Block(oldBlock.index + 1, this.pendingTransactions, oldBlock.hash);
 
         process.env.STOP_MINING = "continue";
+        // setTimeout(() => {}, 8000)
         const response = newBlock.proofOfWork(this.difficulty);
-
-        
+        console.log("PROOF OF WORK DONE")
+        console.log(response)
         if (response === "add") {
             this.blockChain.push(newBlock);
         }

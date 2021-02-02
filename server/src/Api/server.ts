@@ -48,7 +48,7 @@ app.post('/addTransaction', async (req: any, res: any, next: any) => {
     // res.sendStatus(201)
     try {
         const data = JSON.parse(req.body.transaction)
-        await io.emit(SocketActions.ADD_TRANSACTION, data);
+        io.emit(SocketActions.ADD_TRANSACTION, data);
         // const newTx: Transaction = new Transaction(data.sender, data.receiver, data.amount, data.signature)
 
         // // console.log("HERE")
@@ -66,9 +66,10 @@ app.post('/addTransaction', async (req: any, res: any, next: any) => {
 
 app.post('/mineBlock/:miningAddress', async (req: any, res: any, next: any) => {
     try {
-        await io.emit(SocketActions.START_MINING, req.params.miningAddress);
+        io.emit(SocketActions.START_MINING, req.params.miningAddress);
         // blockChain.mineNewBlock(req.params.miningAddress)
-        res.status(201);
+        console.log("RADY TO SEND STATUS")
+        res.sendStatus(201);
     } catch (err) {
         next(err)
     }
