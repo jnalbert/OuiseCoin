@@ -26,8 +26,8 @@ export const socketListeners = (socket: any, blockChain: BlockChain) => {
 
     socket.on(SocketActions.END_MINING, () => {
         console.info("STOPPING MINING")
-        process.env.STOP_MINING;
-        console.log();
+        process.env.STOP_MINING = 'stop';
+        console.log("END OF THREAD");
     })
 
 

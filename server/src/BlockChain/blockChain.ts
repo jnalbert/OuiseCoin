@@ -79,7 +79,7 @@ export class BlockChain {
         }
     }
 
-    mineNewBlock(miningRewardAddress: string) {
+    async mineNewBlock(miningRewardAddress: string) {
 
         this.addTransaction(new Transaction("BlockChain", miningRewardAddress, this.miningReward))
 
@@ -88,7 +88,7 @@ export class BlockChain {
 
         process.env.STOP_MINING = "continue";
         // setTimeout(() => {}, 8000)
-        const response = newBlock.proofOfWork(this.difficulty);
+        const response = await newBlock.proofOfWork(this.difficulty);
         console.log("PROOF OF WORK DONE")
         console.log(response)
         if (response === "add") {
