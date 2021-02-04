@@ -15,9 +15,11 @@ export const socketListeners = (socket: any, blockChain: BlockChain) => {
         
     })
 
-    socket.on(SocketActions.START_MINING, (miningAddress: string) => {
-        const response = blockChain.mineNewBlock(miningAddress);
-        console.log("DONE")
+    socket.on(SocketActions.START_MINING, async (miningAddress: string) => {
+        const response = await blockChain.mineNewBlock(miningAddress);
+        
+        // process.env.STOP_MINING = "stop";
+     
         if (response) {
             blockChain.ioServer.emit(SocketActions.END_MINING)
         }
@@ -27,7 +29,6 @@ export const socketListeners = (socket: any, blockChain: BlockChain) => {
     socket.on(SocketActions.END_MINING, () => {
         console.info("STOPPING MINING")
         process.env.STOP_MINING = 'stop';
-        console.log("END OF THREAD");
     })
 
 

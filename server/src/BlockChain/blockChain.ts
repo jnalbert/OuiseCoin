@@ -7,14 +7,14 @@ export class BlockChain {
     difficulty: number;
     pendingTransactions: Transactions
     miningReward: number
-    nodes: any
+    nodes: string[]
     ioServer: any
 
     constructor(ioServer: any) {
         this.nodes = []
         this.blockChain = [this.createGenesisBlock()]
         this.pendingTransactions = []
-        this.difficulty = 2; // CHANGE TO FOUR WHEN DONE TESTTING 
+        this.difficulty = 2; // CHANGE TO FOUR WHEN DONE TESTING 
         this.miningReward = 100;
         this.ioServer = ioServer;
     }
@@ -88,9 +88,12 @@ export class BlockChain {
 
         process.env.STOP_MINING = "continue";
         // setTimeout(() => {}, 8000)
+        console.log("STARTING PROOF OF WORK")
         const response = await newBlock.proofOfWork(this.difficulty);
-        console.log("PROOF OF WORK DONE")
-        console.log(response)
+        // console.log(response)
+        // console.log("PROOF OF WORK DONE")
+        
+
         if (response === "add") {
             this.blockChain.push(newBlock);
         }

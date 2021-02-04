@@ -25,28 +25,65 @@ export class Block {
         return SHA256(this.index + this.date.toString() + JSON.stringify(this.transactions) + this.prevHash + this.nonce).toString();
     }
 
-    proofOfWork(difficulty: number) {
-        return new Promise((resolve, reject) => {
-            setImmediate(() => {
-                console.log("STARTING PROOF OF WORK")
-                while( process.env.STOP_MINING === 'continue' && this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
-                    this.nonce++;
-                    this.hash = this.computeHash();
-                    // console.log(this.nonce);
-                    // console.log(this)
-                }
+    async proofOfWork(difficulty: number) {
+        return new Promise((resolve) => {
+            setImmediate(async () => {
+                this.nonce++;
+                this.hash = this.computeHash();
 
-                if (this.hash.substring(0, difficulty) === Array(difficulty + 1).join("0") && process.env.STOP_MINING == 'continue') {
-                    process.env.STOP_MINING = 'stop'
+                if (this.hash.substring(0, difficulty) === Array(difficulty + 1).join("0")) {
+                    // process.env.STOP_MINING = 'stop'
+                    
                     console.log("MINING DID NOT STOP EARLY")
                     console.log("Block mined: " + this.hash);
                     resolve("add");
-                }
 
-                if (process.env.STOP_MINING === "stop") {
-                    console.log("MINING STOPPED EARLY")
-                    resolve("Don't Add");
+                } else if (process.env.STOP_MINING === 'stop') {
+                    console.log("BLOCK NOT MINED")
+                    resolve("do not add")
+                } else {
+                    resolve(await this.proofOfWork(difficulty))
                 } 
+
+
+
+
+
+
+                // if (this.hash.substring(0, difficulty) === Array(difficulty + 1).join("0") && process.env.STOP_MINING === 'continue') {
+                //     // process.env.STOP_MINING = 'stop'
+                //     console.log(process.env.STOP_MINING);
+                //     console.log("MINING DID NOT STOP EARLY")
+                //     console.log("Block mined: " + this.hash);
+                //     resolve("add");
+
+                // } else if (process.env.STOP_MINING === 'continue' && this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
+                //     resolve(await this.proofOfWork(difficulty))
+
+                // } else if (process.env.STOP_MINING === 'stop') {
+                //     console.log("MINING STOPPED EARLY")
+                //     resolve("Don't Add");
+                // }
+
+                
+                // while( process.env.STOP_MINING === 'continue' && this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
+                //     this.nonce++;
+                //     this.hash = this.computeHash();
+                //     // console.log(this.nonce);
+                //     // console.log(this)
+                // }
+
+                // if (this.hash.substring(0, difficulty) === Array(difficulty + 1).join("0") && process.env.STOP_MINING == 'continue') {
+                //     process.env.STOP_MINING = 'stop'
+                //     console.log("MINING DID NOT STOP EARLY")
+                //     console.log("Block mined: " + this.hash);
+                //     resolve("add");
+                // }
+
+                // if (process.env.STOP_MINING === "stop") {
+                //     console.log("MINING STOPPED EARLY")
+                //     resolve("Don't Add");
+                // } 
               })
             
         })
