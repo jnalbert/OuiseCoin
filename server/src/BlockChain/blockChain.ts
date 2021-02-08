@@ -93,13 +93,9 @@ export class BlockChain {
         // console.log(response)
         // console.log("PROOF OF WORK DONE")
         
-
-        if (response === "add") {
-            this.blockChain.push(newBlock);
-        }
-
         this.pendingTransactions = []
         if (response === "add") {
+            this.blockChain.push(newBlock);
             return true;
         }
         return false;
