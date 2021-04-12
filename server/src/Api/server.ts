@@ -6,12 +6,16 @@ const ioClient = require('socket.io-client')
 
 const axios = require('axios');
 
-const SocketActions = require('./constants.ts')
+const  SocketActions  = require('./constants')
+import { SocketActionsType } from './constants';
+
+const SAs: SocketActionsType = SocketActions;
 
 import {BlockChain} from '../BlockChain/blockChain'
 import { Transaction } from '../BlockChain/transaction';
 import {makeChainFromJSON} from './util'
 import { socketListeners } from './socketListeners';
+
 
 
 
@@ -25,7 +29,7 @@ let blockChain: BlockChain = new BlockChain(io);
 
 const PORT = process.env.HTTP_PORT || 4000;
 
-// Address of your api end
+// Address of your api end point
 const API_ADDRESS = `http://localhost:${PORT}`;
 
 // middle ware
@@ -33,6 +37,8 @@ app.use(cors())
 app.use(morgan('dev'))
 app.use(errorhandler())
 app.use(bodyParser.json())
+
+const clientListener = ioClient(API_ADDRESS);
 
 app.get('/getLedger', (req: any, res: any, next: any) => {
     try {
@@ -48,17 +54,27 @@ app.post('/addTransaction', async (req: any, res: any, next: any) => {
     // res.sendStatus(201)
     try {
         const data = JSON.parse(req.body.transaction)
-        io.emit(SocketActions.ADD_TRANSACTION, data);
+        io.emit(SAs.ADD_TRANSACTION, data);
         // const newTx: Transaction = new Transaction(data.sender, data.receiver, data.amount, data.signature)
 
+        clientListener.once(SAs.RETURN_TRANSACTION, (err: string) => {
+          if (err) {
+            console.log("recived transReturn")
+            console.log(err);
+            next(new Error(err));
+          } else {
+            res.sendStatus(201)
+          }
+
+        })
         // // console.log("HERE")
         // // console.log(newTx)
         // blockChain.addTransaction(newTx);
         // setTimeout(() => {
         //     console.log(blockChain.pendingTransactions)
         // }, 1000 )
+      
         
-        res.sendStatus(201)
     } catch (err) {
         next(err)
     }
@@ -66,7 +82,7 @@ app.post('/addTransaction', async (req: any, res: any, next: any) => {
 
 app.post('/mineBlock/:miningAddress', async (req: any, res: any, next: any) => {
     try {
-        io.emit(SocketActions.START_MINING, req.params.miningAddress);
+        io.emit(SAs.START_MINING, req.params.miningAddress);
         // blockChain.mineNewBlock(req.params.miningAddress)
         console.log("RADY TO SEND STATUS")
         res.sendStatus(201);
