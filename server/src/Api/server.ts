@@ -84,8 +84,18 @@ app.post('/mineBlock/:miningAddress', async (req: any, res: any, next: any) => {
     try {
         io.emit(SAs.START_MINING, req.params.miningAddress);
         // blockChain.mineNewBlock(req.params.miningAddress)
-        console.log("RADY TO SEND STATUS")
-        res.sendStatus(201);
+
+        clientListener.once(SAs.RETURN_MINING, (err: string) => {
+          if (err) {
+            console.log("recived mining return")
+            console.log(err);
+            next(new Error(err));
+          } else {
+            res.sendStatus(201)
+          }
+
+        })
+      
     } catch (err) {
         next(err)
     }
