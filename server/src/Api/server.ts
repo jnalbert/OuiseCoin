@@ -27,7 +27,7 @@ const bodyParser = require('body-parser');
 let blockChain: BlockChain = new BlockChain(io);
 
 
-const PORT = process.env.HTTP_PORT || 4000;
+const PORT = process.env.HTTP_PORT || "4000";
 
 // Address of your api end point
 const API_ADDRESS = `http://localhost:${PORT}`;
@@ -137,18 +137,22 @@ app.post("/nodes", (req: any, res: any, next: any) => {
        
         if (addedBack === 'true') {
             console.info(`Added node ${address} back`)
-            res.sendStatus(201)
+            
         } else {
             axios.post(`${address}/nodes?addedBack=true`, {
                 address: API_ADDRESS//`http://${req.hostname}:${PORT}`
             })
             console.info(`Added node ${address}`)
-            res.sendStatus(201)
         }
+        res.status(201).send({ nodes: blockChain.getNodes() });
 
     } catch (err) {
         next(err)
     }
+})
+
+app.get("/getNodes", (req: any, res: any, next: any) => {
+    res.status(200).send({ nodes: blockChain.getNodes() });
 })
 
 io.on('connection', (socket: any) => {
@@ -160,10 +164,34 @@ io.on('connection', (socket: any) => {
 
 socketListeners(ioClient(API_ADDRESS), blockChain);
 
-// axios.post(`http://localhost:${PORT}/nodes?addedBack=true`, {
-//     address: `http://localhost:${PORT}`
-// })
-blockChain.addNodes(API_ADDRESS)
+
+const initalStart = async () => {
+    if (PORT !== "4000") {
+        let sendPort = parseInt(PORT)
+        sendPort--;
+        console.log(sendPort)
+        const {data} = await axios.post(`http://localhost:${sendPort}/nodes?addedBack=false`, {
+            address: `http://localhost:${PORT}`
+        })
+
+        const { nodes } = data;
+    
+        console.log(nodes)
+        for (const node of nodes) {
+            if (node !== API_ADDRESS) {
+                await axios.post(`${node}/nodes?addedBack=false`, {
+                    address: `http://localhost:${PORT}`
+                })
+            }
+           
+        }
+    }
+}
+
+
+
+
+// blockChain.addNodes(API_ADDRESS)
 
 
 http.listen(PORT, () => {
@@ -171,3 +199,4 @@ http.listen(PORT, () => {
 })
 
 // HTTP_PORT = 3002 npm run dev
+initalStart()
