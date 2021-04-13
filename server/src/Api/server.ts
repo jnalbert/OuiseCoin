@@ -165,18 +165,17 @@ io.on('connection', (socket: any) => {
 socketListeners(ioClient(API_ADDRESS), blockChain);
 
 
-const initalStart = async () => {
+const initialStart = async () => {
     if (PORT !== "4000") {
         let sendPort = parseInt(PORT)
         sendPort--;
-        console.log(sendPort)
-        const {data} = await axios.post(`http://localhost:${sendPort}/nodes?addedBack=false`, {
+        
+        const { data } = await axios.post(`http://localhost:${sendPort}/nodes?addedBack=false`, {
             address: `http://localhost:${PORT}`
         })
 
         const { nodes } = data;
     
-        console.log(nodes)
         for (const node of nodes) {
             if (node !== API_ADDRESS) {
                 await axios.post(`${node}/nodes?addedBack=false`, {
@@ -199,4 +198,4 @@ http.listen(PORT, () => {
 })
 
 // HTTP_PORT = 3002 npm run dev
-initalStart()
+initialStart()
