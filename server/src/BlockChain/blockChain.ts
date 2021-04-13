@@ -5,7 +5,7 @@ import { BlockChainType, Transactions} from './types';
 export class BlockChain {
     blockChain: BlockChainType;
     difficulty: number;
-    pendingTransactions: Transactions
+    pendingTransactions: Transactions;
     miningReward: number
     nodes: string[]
     ioServer: any
@@ -51,12 +51,9 @@ export class BlockChain {
     }
 
     addNodes(newNode: string) {
-        for(const node of this.nodes) {
-            if (node === newNode) {
-                return;
-            }
-        }
+      if (!this.nodes.includes(newNode)) {
         this.nodes.push(newNode)
+      }
     }
 
     checkChainValidity() {
