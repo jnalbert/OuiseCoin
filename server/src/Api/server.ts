@@ -16,6 +16,7 @@ import { Transaction } from '../BlockChain/transaction';
 import {makeChainFromJSON} from './util'
 import { socketListeners } from './socketListeners';
 
+const DEFAULT_MINING_ADDRESS = "0422654da9e7856d01642a59a8f4c8efb1721e18e62c48673c1c661b946b5d2b172e45a7880e33ecc198000eecfc1395c10995d27aad462703462f86273291fa5b";
 
 
 
@@ -67,6 +68,10 @@ app.post('/addTransaction', async (req: any, res: any, next: any) => {
           }
 
         })
+
+        if (blockChain.pendingTransactions.length >= 4) {
+            io.emit(SAs.START_MINING, DEFAULT_MINING_ADDRESS);
+          }
         // // console.log("HERE")
         // // console.log(newTx)
         // blockChain.addTransaction(newTx);
@@ -198,4 +203,6 @@ http.listen(PORT, () => {
 })
 
 // HTTP_PORT = 3002 npm run dev
+
 initialStart()
+

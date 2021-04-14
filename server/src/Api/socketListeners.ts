@@ -6,6 +6,8 @@ const SocketActions  = require('./constants')
 import { SocketActionsType } from './constants';
 import { Transactions } from '../BlockChain/types';
 
+
+
 const SAs: SocketActionsType = SocketActions;
 
 export const socketListeners = (socket: any, blockChain: BlockChain) => {
@@ -27,8 +29,7 @@ export const socketListeners = (socket: any, blockChain: BlockChain) => {
     
     
     blockChain.ioServer.emit(SAs.RETURN_TRANSACTION, returnErr);
-    
-        
+     
         
     })
 
