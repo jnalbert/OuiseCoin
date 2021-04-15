@@ -5,6 +5,7 @@ const io = require('socket.io')(http);
 const ioClient = require('socket.io-client')
 
 const axios = require('axios');
+const fs = require('fs');
 
 const  SocketActions  = require('./constants')
 import { SocketActionsType } from './constants';
@@ -16,9 +17,8 @@ import { Transaction } from '../BlockChain/transaction';
 import {makeChainFromJSON} from './util'
 import { socketListeners } from './socketListeners';
 
+
 const DEFAULT_MINING_ADDRESS = "0422654da9e7856d01642a59a8f4c8efb1721e18e62c48673c1c661b946b5d2b172e45a7880e33ecc198000eecfc1395c10995d27aad462703462f86273291fa5b";
-
-
 
 const morgan = require("morgan");
 const cors = require("cors");
@@ -27,6 +27,16 @@ const bodyParser = require('body-parser');
 
 let blockChain: BlockChain = new BlockChain(io);
 
+// IF YOU ARE USING THIS IN DEV MODE LEAVE TRUE
+const dev = true;
+
+if (!dev) {
+    const fileBlockChain = makeChainFromJSON(JSON.parse(fs.readFileSync("/Users/justinalbert/Code_Projects/CryptoStuff/ouiseCoin/server/src/Api/chain.json")));
+
+    blockChain.blockChain = fileBlockChain.blockChain
+    blockChain.pendingTransactions = fileBlockChain.pendingTransactions;
+    console.log("Loaded chain from file")
+}
 
 const PORT = process.env.HTTP_PORT || "4000";
 
@@ -149,7 +159,11 @@ app.post("/nodes", (req: any, res: any, next: any) => {
             })
             console.info(`Added node ${address}`)
         }
-        res.status(201).send({ nodes: blockChain.getNodes() });
+        const chainToSend = makeChainFromJSON(blockChain);
+        chainToSend.ioServer = null;
+        const jsonBlockChain = JSON.stringify(chainToSend);
+
+        res.status(201).send({ nodes: blockChain.getNodes(), newBlockChain: jsonBlockChain });
 
     } catch (err) {
         next(err)
@@ -170,27 +184,55 @@ io.on('connection', (socket: any) => {
 socketListeners(ioClient(API_ADDRESS), blockChain);
 
 
-const initialStart = async () => {
-    if (PORT !== "4000") {
-        let sendPort = parseInt(PORT)
-        sendPort--;
+// const initialStart = async () => {
+//     if (PORT !== "4000") {
+//         let sendPort = parseInt(PORT)
+//         sendPort--;
         
-        const { data } = await axios.post(`http://localhost:${sendPort}/nodes?addedBack=false`, {
-            address: `http://localhost:${PORT}`
-        })
+//         const { data } = await axios.post(`http://localhost:${sendPort}/nodes?addedBack=false`, {
+//             address: `http://localhost:${PORT}`
+//         })
 
-        const { nodes } = data;
+//         const { nodes } = data;
     
-        for (const node of nodes) {
-            if (node !== API_ADDRESS) {
-                await axios.post(`${node}/nodes?addedBack=false`, {
-                    address: `http://localhost:${PORT}`
-                })
-            }
+//         for (const node of nodes) {
+//             if (node !== API_ADDRESS) {
+//                 await axios.post(`${node}/nodes?addedBack=false`, {
+//                     address: `http://localhost:${PORT}`
+//                 })
+//             }
            
+//         }
+//     }
+// }
+
+const knowAPIAddress = "http://localhost:4000"
+
+ const initialStart = async () => {
+        if (knowAPIAddress !== API_ADDRESS) {
+            const { data } = await axios.post(`${knowAPIAddress}/nodes?addedBack=false`, {
+                address: API_ADDRESS
+            })
+    
+            const { nodes } = data;
+            const newChain = makeChainFromJSON(JSON.parse(data.newBlockChain));
+            
+            
+            newChain.ioServer = blockChain.ioServer;
+            newChain.nodes = blockChain.nodes;
+
+            blockChain = newChain
+        
+            for (const node of nodes) {
+                if (node !== API_ADDRESS) {
+                    await axios.post(`${node}/nodes?addedBack=false`, {
+                        address: API_ADDRESS
+                    })
+                }
+               
+            }
         }
     }
-}
 
 
 
@@ -205,4 +247,20 @@ http.listen(PORT, () => {
 // HTTP_PORT = 3002 npm run dev
 
 initialStart()
+
+// Start reading from stdin so we don't exit.
+if (API_ADDRESS === knowAPIAddress) {
+    process.stdin.resume();
+
+    process.on('SIGINT',  () => {
+        blockChain.nodes = [];
+        blockChain.ioServer = null;
+        fs.writeFileSync("/Users/justinalbert/Code_Projects/CryptoStuff/ouiseCoin/server/src/Api/chain.json", JSON.stringify(blockChain))
+        console.log('\nSaved Chain');
+        process.exit(0)
+    });
+}
+
+
+
 
