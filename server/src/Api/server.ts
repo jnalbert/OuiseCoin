@@ -28,9 +28,9 @@ const bodyParser = require('body-parser');
 let blockChain: BlockChain = new BlockChain(io);
 
 // IF YOU ARE USING THIS IN DEV MODE LEAVE TRUE
-const dev = true;
+const prod = false;
 
-if (!dev) {
+if (prod) {
     const fileBlockChain = makeChainFromJSON(JSON.parse(fs.readFileSync("/Users/justinalbert/Code_Projects/CryptoStuff/ouiseCoin/server/src/Api/chain.json")));
 
     blockChain.blockChain = fileBlockChain.blockChain
@@ -249,7 +249,8 @@ http.listen(PORT, () => {
 initialStart()
 
 // Start reading from stdin so we don't exit.
-if (API_ADDRESS === knowAPIAddress) {
+
+if (prod && API_ADDRESS === knowAPIAddress) {
     process.stdin.resume();
 
     process.on('SIGINT',  () => {
