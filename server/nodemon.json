@@ -1,6 +1,6 @@
 {
     "watch": ["src/Api"],
-    "ext": "ts,json",
+    "ext": "ts",
     "ignore": ["src/Api/server.js"],
     "exec": "npx tsc ./src/Api/server.ts; node ./src/Api/server.js"    
   }
