@@ -3,8 +3,8 @@
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+
 }
 
 .main {
@@ -13,7 +13,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 .footer {
@@ -22,7 +21,6 @@
   border-top: 1px solid #eaeaea;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .footer img {
@@ -52,11 +50,6 @@
   font-size: 4rem;
 }
 
-.title,
-.description {
-  text-align: center;
-}
-
 .description {
   line-height: 1.5;
   font-size: 1.5rem;
@@ -65,7 +58,7 @@
 .code {
   background: #fafafa;
   border-radius: 5px;
-  padding: 0.75rem;
+  
   font-size: 1.1rem;
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
     Bitstream Vera Sans Mono, Courier New, monospace;
@@ -73,9 +66,8 @@
 
 .grid {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: flex-start;
   max-width: 800px;
   margin-top: 3rem;
 }
