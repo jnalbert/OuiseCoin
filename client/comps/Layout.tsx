@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import LayoutStyleSheet from "../styles/Layout.module.css";
 import Link from "next/link";
 
@@ -6,7 +6,7 @@ interface LayoutProps {
   children: ReactNode;
 }
 
-function Layout({ children }: LayoutProps) {
+const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <nav className={LayoutStyleSheet.navbar}>
