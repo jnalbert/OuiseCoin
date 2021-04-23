@@ -1,7 +1,7 @@
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import Head from 'next/head';
+import styles from '../../styles/Home.module.css'
 
-function Chain() {
+const Home = () => {
   return (
     <div className={styles.container}>
       <Head>
@@ -13,8 +13,9 @@ function Chain() {
         Block<span>Chain</span>
       </h1>
     </div>
+      
 
-  );
+  )
 }
 
-export default Chain;
+export default Home;
