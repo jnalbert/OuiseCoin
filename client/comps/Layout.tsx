@@ -13,10 +13,14 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         <ul className={LayoutStyleSheet.navbarList}>
           {/* logo link */}
           <li className={LayoutStyleSheet.logo}>
-            <div className={LayoutStyleSheet.navLink}>
-              <Link href="/">
-                <>
-                  <span className={`${LayoutStyleSheet.linkText} ${LayoutStyleSheet.logoText}`}>Ouise Coin</span>
+            <Link href="/">
+              <div className={LayoutStyleSheet.navLink}>
+                <a>
+                  <span
+                    className={`${LayoutStyleSheet.linkText} ${LayoutStyleSheet.logoText}`}
+                  >
+                    Ouise Coin
+                  </span>
                   <svg
                     aria-hidden="true"
                     focusable="false"
@@ -40,16 +44,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                       ></path>
                     </g>
                   </svg>
-                </>
-              </Link>
-            </div>
+                </a>
+              </div>
+            </Link>
           </li>
 
           {/* home link */}
           <li className={LayoutStyleSheet.navbarItem}>
-            <div className={LayoutStyleSheet.navLink}>
-              <Link href="/">
-                <>
+            <Link href="/">
+              <div className={LayoutStyleSheet.navLink}>
+                <a>
                   <svg
                     aria-hidden="true"
                     focusable="false"
@@ -66,16 +70,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                     ></path>
                   </svg>
                   <span className={LayoutStyleSheet.linkText}>Home</span>
-                </>
-              </Link>
-            </div>
+                </a>
+              </div>
+            </Link>
           </li>
 
           {/* Block Chain link */}
           <li className={LayoutStyleSheet.navbarItem}>
-            <div className={LayoutStyleSheet.navLink}>
-              <Link href="/chain">
-                <>
+            <Link href="/blocks">
+              <div className={LayoutStyleSheet.navLink}>
+                <a>
                   <svg
                     aria-hidden="true"
                     focusable="false"
@@ -92,16 +96,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                     ></path>
                   </svg>
                   <span className={LayoutStyleSheet.linkText}>Block Chain</span>
-                </>
-              </Link>
-            </div>
+                </a>
+              </div>
+            </Link>
           </li>
 
           {/* Transactions link */}
           <li className={LayoutStyleSheet.navbarItem}>
-            <div className={LayoutStyleSheet.navLink}>
-              <Link href="/transactions">
-                <>
+            <Link href="/transactions">
+              <div className={LayoutStyleSheet.navLink}>
+                <a>
                   <svg
                     aria-hidden="true"
                     focusable="false"
@@ -120,16 +124,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                   <span className={LayoutStyleSheet.linkText}>
                     Transactions
                   </span>
-                </>
-              </Link>
-            </div>
+                </a>
+              </div>
+            </Link>
           </li>
 
           {/* Miners link */}
           <li className={LayoutStyleSheet.navbarItem}>
-            <div className={LayoutStyleSheet.navLink}>
-              <Link href="/miners">
-                <>
+            <Link href="/miners">
+              <div className={LayoutStyleSheet.navLink}>
+                <a>
                   <svg
                     aria-hidden="true"
                     focusable="false"
@@ -146,16 +150,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                     ></path>
                   </svg>
                   <span className={LayoutStyleSheet.linkText}>Miners</span>
-                </>
-              </Link>
-            </div>
+                </a>
+              </div>
+            </Link>
           </li>
 
           {/* Wallet link */}
           <li className={LayoutStyleSheet.navbarItem}>
-            <div className={LayoutStyleSheet.navLink}>
-              <Link href="/wallet">
-                <>
+            <Link href="/wallet">
+              <div className={LayoutStyleSheet.navLink}>
+                <a>
                   <svg
                     aria-hidden="true"
                     focusable="false"
@@ -172,16 +176,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                     ></path>
                   </svg>
                   <span className={LayoutStyleSheet.linkText}>Wallet</span>
-                </>
-              </Link>
-            </div>
+                </a>
+              </div>
+            </Link>
           </li>
 
           {/* Account link */}
           <li className={LayoutStyleSheet.navbarItem}>
-            <div className={LayoutStyleSheet.navLink}>
-              <Link href="/account">
-                <>
+            <Link href="/account">
+              <div className={LayoutStyleSheet.navLink}>
+                <a>
                   <svg
                     aria-hidden="true"
                     focusable="false"
@@ -198,9 +202,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                     ></path>
                   </svg>
                   <span className={LayoutStyleSheet.linkText}>Account</span>
-                </>
-              </Link>
-            </div>
+                </a>
+              </div>
+            </Link>
           </li>
         </ul>
       </nav>
