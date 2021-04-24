@@ -7,8 +7,55 @@
     grid-template-rows: auto auto;
   }
   
+.contentHeader {
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+   color: #677185;
+    font-size: 14px;
+    padding: 0 0 12px 0;
+}
 
+.hiddenText {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.spanWrapper {
+    max-width: 90%;
+}
+
+.contentTypeIndex {
+    width: 18%;
+}
+
+.contentTypeMined {
+    width: 25%;
+}
+
+.contentTypeMiner {
+    width: 25%;
+}
+
+.contentTypeHash {
+    width: 32%;
+}
   
+.blocksWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.block {
+    height: 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 12px 0 12px 0;
+}
+
   
   
   @media only screen and (max-width: 1355px) {
