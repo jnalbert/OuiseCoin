@@ -1,0 +1,31 @@
+
+.infoContainer {
+    display: flex;
+    justify-content: space-between;
+    height: 55px;
+    border: 1px solid var(--border-color);
+  border-radius: 10px;
+  width: 75%;
+  margin: 0 auto  0 auto ;
+  padding: 0 15px 0 15px ;
+}
+
+.infoSection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    height: 100%;
+    
+}
+
+.infoTitle {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.infoContent {
+
+    font-size: 16px;
+    padding-left: 13px;
+}
