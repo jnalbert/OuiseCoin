@@ -11,22 +11,22 @@ const InfoBar: FC = () => {
     <div className={styles.infoContainer}>
       <div className={styles.infoSection}>
         <div className={styles.infoTitle}>Price:</div>
-        <div className={styles.infoContent}>{ `$${price}`}</div>
+        <div className={styles.infoContent}>{`$${price}`}</div>
       </div>
 
       <div className={styles.infoSection}>
         <div className={styles.infoTitle}>MarketCap:</div>
-        <div className={styles.infoContent}>{ `$${marketCap}`}</div>
+        <div className={styles.infoContent}>{`$${marketCap}`}</div>
       </div>
 
       <div className={styles.infoSection}>
         <div className={styles.infoTitle}>Days Volume (ouc):</div>
-        <div className={styles.infoContent}>{ `${daysVolume} ouc`}</div>
+        <div className={styles.infoContent}>{`${daysVolume} ouc`}</div>
       </div>
 
       <div className={styles.infoSection}>
-        <div className={styles.infoTitle}>Coin circulating:</div>
-        <div className={styles.infoContent}>{ `${coinsCirculating} ouc`}</div>
+        <div className={styles.infoTitle}>Coins circulating:</div>
+        <div className={styles.infoContent}>{`${coinsCirculating} ouc`}</div>
       </div>
     </div>
   );

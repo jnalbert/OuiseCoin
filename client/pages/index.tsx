@@ -7,7 +7,6 @@ import InfoBar from "../comps/home/InfoBar";
 
 import styles from "../styles/homePage/Home.module.css";
 
-
 const Home: FC = () => {
   return (
     <>
@@ -22,12 +21,11 @@ const Home: FC = () => {
         </h1>
 
         <InfoBar />
-        
-        <GridCards/>
 
+        <GridCards />
       </div>
     </>
   );
-}
+};
 
 export default Home;
