@@ -15,7 +15,8 @@ body {
   --bg-primary: #23232e;
   --bg-secondary: #141418;
   --transition-speed: 600ms;
-  --coin-color:  #065bc2;
+  /* --coin-color:  #0763d3; */
+  --coin-color: #0c6cf2;
   --border-color: #dfdede;
 }
 

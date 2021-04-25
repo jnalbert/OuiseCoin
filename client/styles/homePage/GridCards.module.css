@@ -16,47 +16,17 @@
     padding: 0 0 12px 0;
 }
 
-.hiddenText {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.txnHeader {
+    padding-bottom: 10px !important;
 }
 
-.spanWrapper {
-    max-width: 90%;
-}
-
-.contentTypeIndex {
-    width: 18%;
-}
-
-.contentTypeMined {
-    width: 25%;
-}
-
-.contentTypeMiner {
-    width: 25%;
-}
-
-.contentTypeHash {
-    width: 32%;
-}
   
-.blocksWrapper {
+.sectionsWrapper {
     display: flex;
     flex-direction: column;
 }
 
-.block {
-    height: 25%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 12px 0 12px 0;
-}
 
-  
   
   @media only screen and (max-width: 1355px) {
       .grid {

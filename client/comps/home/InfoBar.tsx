@@ -21,12 +21,12 @@ const InfoBar: FC = () => {
 
       <div className={styles.infoSection}>
         <div className={styles.infoTitle}>Days Volume (ouc):</div>
-        <div className={styles.infoContent}>{`${daysVolume} ouc`}</div>
+        <div className={styles.infoContent}>{`${daysVolume} OUC`}</div>
       </div>
 
       <div className={styles.infoSection}>
         <div className={styles.infoTitle}>Coins circulating:</div>
-        <div className={styles.infoContent}>{`${coinsCirculating} ouc`}</div>
+        <div className={styles.infoContent}>{`${coinsCirculating} OUC`}</div>
       </div>
     </div>
   );
