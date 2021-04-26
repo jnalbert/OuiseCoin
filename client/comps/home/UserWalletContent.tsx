@@ -12,11 +12,12 @@ const UserWalletContent: FC<UserWalletContentProps> = ({address}) => {
   const blocksMined = 3;
   const FillIn = "Fill In"
   const dataCreated = "4/5/2021"
+  const userName = "Justin Albert"
 
   return (
     <div className={styles.userInfoContainer}>
-      <div className={styles.addressContainer}>
-          <span className={styles.contentName}>Address: </span> {address}
+      <div className={styles.nameContainer}>
+          {userName}
       </div>
 
       <div className={styles.walletContent}>
