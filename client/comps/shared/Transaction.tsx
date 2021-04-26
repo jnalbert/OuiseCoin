@@ -24,7 +24,7 @@ const Transaction: FC<TransactionProps> = ({ hash, time, amountOUC, amountUSD, c
 
       <div style={{width: "30%"}}>
         <div className={`${styles.spanWrapper} ${styles.hiddenText}`}>
-          <Link href={`/transactions/${hash}`}>
+          <Link href={`/blockchain/transactions/${hash}`}>
             <a>
               <span className={`${styles.blockSpan} ${styles.hoverLink}`}>{ hash }</span>
             </a>

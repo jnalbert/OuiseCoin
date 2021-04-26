@@ -77,7 +77,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
           {/* Block Chain link */}
           <li className={LayoutStyleSheet.navbarItem}>
-            <Link href="/blocks">
+            <Link href="/blockchain">
               <div className={LayoutStyleSheet.navLink}>
                 <a>
                   <svg
@@ -103,7 +103,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
           {/* Transactions link */}
           <li className={LayoutStyleSheet.navbarItem}>
-            <Link href="/transactions">
+            <Link href="/send-ouc">
               <div className={LayoutStyleSheet.navLink}>
                 <a>
                   <svg
@@ -122,7 +122,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
                     ></path>
                   </svg>
                   <span className={LayoutStyleSheet.linkText}>
-                    Transactions
+                    Send OUC
                   </span>
                 </a>
               </div>

@@ -1,0 +1,38 @@
+.walletContent {
+    display: flex; 
+}
+.contentWrapper {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 1px;
+}
+
+.rightContentWrapper {
+    padding-left: 30px;
+}
+.addressContainer {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.contentName {
+    color: #677185;
+    font-size: 16px;
+    padding: 7px 40px 7px 0;
+}
+
+.contentData {
+    padding: 7px 0 7px 0;
+}
+
+.lineDiv {
+    border: 1px solid;
+    border-color: #969494;
+    margin: 0 10px 0 10px;
+}
+
+.userInfoContainer {
+    height: 40%;
+    margin-bottom: 22px;
+}

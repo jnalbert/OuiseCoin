@@ -1,0 +1,53 @@
+.pendingTrxsContainer {
+    height: 25%;
+}
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 3px;
+}
+
+.titleWrapper {
+  text-align: center;
+  border-bottom: 1px solid;
+  width: 100%;
+}
+
+.contentHeader {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  color: #677185;
+  font-size: 14px;
+  padding: 3px 0 12px 0;
+}
+
+.txnHeader {
+  padding-bottom: 10px !important;
+}
+
+.sectionsWrapper {
+overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* scroll bar always on */
+.sectionsWrapper::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.sectionsWrapper::-webkit-scrollbar:vertical {
+    width: 11px;
+}
+
+.sectionsWrapper::-webkit-scrollbar:horizontal {
+    height: 11px;
+}
+
+.sectionsWrapper::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 2px solid white; /* should match background, can't be transparent */
+    background-color: rgba(0, 0, 0, .5);
+}

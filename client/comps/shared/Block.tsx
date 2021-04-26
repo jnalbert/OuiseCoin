@@ -14,7 +14,7 @@ const Block: FC<BlockProps> = ({index, mined, miner, hash}) => {
     <div className={styles.section}>
       <div style={{width: "15%"}}>
         <div className={styles.spanWrapper}>
-          <Link href={`/blocks/${hash}`}>
+          <Link href={`/blockchain/blocks/${hash}`}>
             <a>
               <span className={`${styles.blockSpan} ${styles.hoverLink}`}>{ index }</span>
             </a>
@@ -42,7 +42,7 @@ const Block: FC<BlockProps> = ({index, mined, miner, hash}) => {
 
       <div className={`${styles.hiddenText}`} style={{width: "32%"}}>
         <div className={`${styles.spanWrapper} ${styles.hiddenText}`}>
-          <Link href={`/blocks/${hash}`}>
+          <Link href={`/blockchain/blocks/${hash}`}>
             <a>
               <span className={`${styles.blockSpan} ${styles.hoverLink}`}>{ hash }</span>
             </a>

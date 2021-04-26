@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { FC } from 'react';
-import styles from '../../styles/homePage/Home.module.css'
+import styles from '../../../styles/homePage/Home.module.css'
 
 const Home: FC = () => {
   return (
