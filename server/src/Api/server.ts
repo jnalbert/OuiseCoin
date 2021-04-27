@@ -250,17 +250,22 @@ initialStart()
 
 // Start reading from stdin so we don't exit.
 
-if (prod && API_ADDRESS === knowAPIAddress) {
-    process.stdin.resume();
 
-    process.on('SIGINT',  () => {
-        blockChain.nodes = [];
-        blockChain.ioServer = null;
-        fs.writeFileSync("/Users/justinalbert/Code_Projects/CryptoStuff/ouiseCoin/server/src/Api/chain.json", JSON.stringify(blockChain))
-        console.log('\nSaved Chain');
-        process.exit(0)
-    });
-}
+process.stdin.resume();
+
+process.on('SIGINT',  () => {
+    blockChain.nodes = [];
+    blockChain.ioServer = null;
+  io.emit(SAs.REMOVE_NODE, API_ADDRESS);
+  console.log("\nnode removed")
+    if (prod && API_ADDRESS === knowAPIAddress) {
+      fs.writeFileSync("/Users/justinalbert/Code_Projects/CryptoStuff/ouiseCoin/server/src/Api/chain.json", JSON.stringify(blockChain))
+      console.log('\nSaved Chain');
+      
+    }
+    process.exit(0)
+    
+});
 
 
 

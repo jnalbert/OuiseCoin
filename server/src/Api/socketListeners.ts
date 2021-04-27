@@ -4,7 +4,7 @@ import { makeChainFromJSON } from './util';
 
 const SocketActions  = require('./constants')
 import { SocketActionsType } from './constants';
-import { Transactions } from '../BlockChain/types';
+
 
 
 
@@ -79,7 +79,13 @@ export const socketListeners = (socket: any, blockChain: BlockChain) => {
       }
         
 
-    })
+  })
+  
+  socket.on(SAs.REMOVE_NODE, (removeNode: string) => {
+    console.log("removing " + removeNode);
+    blockChain.nodes = blockChain.nodes.filter((node: string) => { return node !== removeNode });
+    
+  })
 
 
     
