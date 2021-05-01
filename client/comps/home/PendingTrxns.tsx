@@ -5,7 +5,8 @@ import Transaction from "../shared/Transaction"
 interface PendingTrxnsProps {
   address: string;
 }
-const PendingTrxns: FC<PendingTrxnsProps> = ({address}) => {
+const PendingTrxns: FC<PendingTrxnsProps> = ({ address }) => {
+  
   return (
     <div className={styles.pendingTrxsContainer}>
       <div className={styles.header}>
@@ -18,7 +19,7 @@ const PendingTrxns: FC<PendingTrxnsProps> = ({address}) => {
             <div style={{width: "22%"}}>Time</div>
             <div style={{width: "20%"}}>Amount (ouc)</div>
             <div style={{width: "19%"}}>Amount (USD)</div>
-            <div style={{width: "9%"}}>Confirmed</div>
+          <div style={{ width: "9%" }}>Confirmed</div>
         </div>
       </div>
       

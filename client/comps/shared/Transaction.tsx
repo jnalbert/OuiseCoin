@@ -11,7 +11,7 @@ interface TransactionProps {
   confirmed: boolean;
 }
 
-const Transaction: FC<TransactionProps> = ({ hash, time, amountOUC, amountUSD, confirmed }) => {
+const Transaction: FC<TransactionProps> = ({ hash, time, amountOUC, amountUSD, confirmed}) => {
   const getIsConfirmedHTML = () => {
     if (confirmed) {
       return <span className={trxStyles.emojiSpan}>✅</span>

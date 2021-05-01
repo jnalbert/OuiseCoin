@@ -6,12 +6,12 @@ const Home: FC = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Chain</title>
+        <title>Blocks</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <h1 className={styles.title}>
-        Block<span>Chain</span>
+        Blocks
       </h1>
     </div>
       

@@ -33,9 +33,20 @@
 
 .cardTitle {
     text-align: center;
-    padding-bottom: 3px;
+    padding-bottom: 5px;
     border-bottom: 1px solid;
-    border-color: #353434;
+    border-color: #414144;
+    margin-bottom: 10px;
+}
+
+.cardTitleText {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.cardTitleText:hover {
+    text-decoration: underline;
+    color: #3d3c3c;
 }
 
 .content {

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import styles from "../../styles/homePage/GridCards.module.css";
 import Block from "../shared/Block";
+import Miner from "../shared/Miner";
 import Transaction from "../shared/Transaction";
 
 
@@ -58,7 +59,21 @@ const GridCards: FC = () => {
       </Card>
 
       <Card title="Miners" href="/miners">
-        <div>Content</div>
+        <div className={styles.contentHeader}>
+          <div style={{width: "36%"}}>Address</div>
+          <div style={{width: "18%"}}>Blocks Mined</div>
+          <div style={{width: "23%"}}>OUC Mined</div>
+          <div style={{width: "23%"}}>USD Mined</div>
+        </div>
+
+        <div className={`${styles.sectionsWrapper}`}>
+          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} />
+          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} />
+          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} />
+          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} />
+          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} />
+          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245}/>
+        </div>
       </Card>
     </div>
   );

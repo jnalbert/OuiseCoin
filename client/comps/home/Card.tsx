@@ -13,11 +13,14 @@ const Card: FC<CardProps> = ({ title, href, children }) => {
   return (
     <div>
       <div className={styles.card}>
-        <Link href={href}>
-          <a>
-            <h3 className={styles.cardTitle}>{title} &rarr;</h3>
-          </a>
-        </Link>
+        <div className={styles.cardTitle}>
+          <Link href={href}>
+            <a>
+              <span className={styles.cardTitleText}>{title} &rarr;</span>
+            </a>
+          </Link>
+        </div>
+        
         <div className={styles.content}>{children}</div>
       </div>
     </div>
