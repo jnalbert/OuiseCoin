@@ -6,8 +6,6 @@ const SocketActions  = require('./constants')
 import { SocketActionsType } from './constants';
 
 
-
-
 const SAs: SocketActionsType = SocketActions;
 
 export const socketListeners = (socket: any, blockChain: BlockChain) => {

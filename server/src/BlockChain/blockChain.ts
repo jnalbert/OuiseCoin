@@ -18,7 +18,7 @@ export class BlockChain {
         this.miningReward = 100;
         this.ioServer = ioServer;
     }
-
+ 
     private createGenesisBlock() {
         return new Block(0, [new Transaction("start", "start", 0)], " ");
 
@@ -32,15 +32,23 @@ export class BlockChain {
         return this.blockChain;
     }
 
-    addTransaction(transaction: Transaction) {
+  addTransaction(transaction: Transaction) {
+    
         if(!transaction.isValid()) {
             throw new Error("Can't add an invalid transaction to the cain")
+        }
+
+        if (!this.hasFunds(transaction.amount, transaction.sender)) {
+            throw new Error("Sender does not have enough money")
         }
  
         this.pendingTransactions.push(transaction)
         
         
     }
+    hasFunds(amountToTransfer: number, address: string): boolean {
+      return (this.getBalanceOfAddress(address) >= amountToTransfer);
+    } 
 
     getTransactions() {
         return this.pendingTransactions;

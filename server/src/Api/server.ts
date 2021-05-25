@@ -13,7 +13,7 @@ import { SocketActionsType } from './constants';
 const SAs: SocketActionsType = SocketActions;
 
 import {BlockChain} from '../BlockChain/blockChain'
-import { Transaction } from '../BlockChain/transaction';
+
 import {makeChainFromJSON} from './util'
 import { socketListeners } from './socketListeners';
 
@@ -72,7 +72,7 @@ app.post('/addTransaction', async (req: any, res: any, next: any) => {
           if (err) {
             console.log("recived transReturn")
             console.log(err);
-            next(new Error(err));
+            res.status(500).send(err);
           } else {
             res.sendStatus(201)
           }
@@ -205,7 +205,7 @@ socketListeners(ioClient(API_ADDRESS), blockChain);
 //         }
 //     }
 // }
-
+ 
 const knowAPIAddress = "http://localhost:4000"
 
  const initialStart = async () => {
