@@ -72,7 +72,7 @@ app.post('/addTransaction', async (req: any, res: any, next: any) => {
           if (err) {
             console.log("recived transReturn")
             console.log(err);
-            res.status(500).send(err);
+            res.status(400).send({err: err});
           } else {
             res.sendStatus(201)
           }
@@ -104,7 +104,7 @@ app.post('/mineBlock/:miningAddress', async (req: any, res: any, next: any) => {
           if (err) {
             console.log("recived mining return")
             console.log(err);
-            next(new Error(err));
+            res.status(400).send({err: err})
           } else {
             res.sendStatus(201)
           }
