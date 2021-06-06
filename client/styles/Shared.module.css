@@ -10,6 +10,7 @@
 
 .hoverLink {
     color: var(--coin-color);
+    cursor: pointer;
 }
 
 .hoverLink:hover {

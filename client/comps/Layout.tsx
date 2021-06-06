@@ -157,7 +157,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
           {/* Wallet link */}
           <li className={LayoutStyleSheet.navbarItem}>
-            <Link href="/wallets">
+            <Link href="/wallets/38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ">
               <div className={LayoutStyleSheet.navLink}>
                 <a>
                   <svg

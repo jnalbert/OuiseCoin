@@ -1,18 +1,29 @@
-import { useRouter } from 'next/dist/client/router';
-import { FC } from 'react';
+import { useRouter } from "next/dist/client/router";
+import { FC } from "react";
+import WalletInfo from "../../comps/wallet/WalletInfo";
+import styles from "../../styles/walletStyles/WalletPage.module.css";
 
-const walletItem: FC = () => {
-  const { address } = useRouter().query;
+import Head from "next/head";
 
-  console.log(address);
+import headerStyles from "../../styles/homePage/Home.module.css";
+const walletPage: FC = () => {
+  let { address } = useRouter().query;
+  address = address as string;
 
   return (
-    <div>
-      <h2>
-        {address}
-      </h2>
-    </div>
-  )
-}
+    <div className={styles.pageContainer}>
+      <Head>
+        <title>Wallets</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-export default walletItem;
+      <div className={headerStyles.container}>
+        <h1 className={headerStyles.title}>Wallet</h1>
+      </div>
+
+      <WalletInfo address={address} />
+    </div>
+  );
+};
+
+export default walletPage;
