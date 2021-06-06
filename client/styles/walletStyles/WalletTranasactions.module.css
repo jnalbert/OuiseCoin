@@ -1,0 +1,23 @@
+.wrapper {
+    width: 100%;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headerWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.header {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.transactionsContainer {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,8 @@
+.contentHeader {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    color: #677185;
+    font-size: 14px;
+    padding: 3px 0 12px 0;
+  }

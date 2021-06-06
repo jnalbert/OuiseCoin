@@ -9,9 +9,16 @@ interface TransactionProps {
   amountOUC: number;
   amountUSD: number;
   confirmed: boolean;
+  border: boolean;
 }
 
-const Transaction: FC<TransactionProps> = ({ hash, time, amountOUC, amountUSD, confirmed}) => {
+const Transaction: FC<TransactionProps> = ({ hash, time, amountOUC, amountUSD, confirmed, border }) => {
+  
+  let borderClass = "";
+  if (border) {
+    borderClass = styles.border;
+  }
+
   const getIsConfirmedHTML = () => {
     if (confirmed) {
       return <span className={trxStyles.emojiSpan}>✅</span>
@@ -19,8 +26,10 @@ const Transaction: FC<TransactionProps> = ({ hash, time, amountOUC, amountUSD, c
     return <span className={trxStyles.emojiSpan}>❌</span>
   }
   const isConfirmed = (confirmed) ? "Yes " : "No ";
+
+
   return (
-    <div className={styles.section}>
+    <div id="sectionWrapper" className={[styles.section, borderClass].join(" ")}>
 
       <div style={{width: "30%"}}>
         <div className={`${styles.spanWrapper} ${styles.hiddenText}`}>

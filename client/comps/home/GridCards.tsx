@@ -6,7 +6,10 @@ import Transaction from "../shared/Transaction";
 
 
 import Card from "./Card";
-import PendingTrxns from "./PendingTrxns";
+import BlocksHeader from "./headers/BlocksHeader";
+import MinersHeader from "./headers/MinersHeader";
+import PendingTrxsHeader from "./headers/PendingTrxsHeader";
+import PendingTrxns from "./PendingTransactions/PendingTrxns";
 import UserWalletContent from "./UserWalletContent";
 
 const GridCards: FC = () => {
@@ -16,39 +19,28 @@ const GridCards: FC = () => {
   return (
     <div className={styles.grid}>
       <Card title="Blocks" href="/blockchain/blocks">
-        <div className={styles.contentHeader}>
-          <div style={{width: "15%"}}>Index</div>
-          <div style={{width: "25%"}}>Mined</div>
-          <div style={{width: "28%"}}>Miner</div>
-          <div style={{width: "32%"}}>Hash</div>
-        </div>
+        <BlocksHeader />
 
         <div className={styles.sectionsWrapper}>
-          <Block index={5} mined="25 seconds" miner="2l423kl42h3lk4n23kl4n2l34h2lh4l2h4k2l342" hash="342kj4h234h2l342hj4kl23h4j2h4jl2b4234jl23b4l2" />
-          <Block index={5} mined="25 seconds" miner="2l423kl42h3lk4n23kl4n2l34h2lh4l2h4k2l342" hash="342kj4h234h2l342hj4kl23h4j2h4jl2b4234jl23b4l2" />
-          <Block index={5} mined="25 seconds" miner="2l423kl42h3lk4n23kl4n2l34h2lh4l2h4k2l342" hash="342kj4h234h2l342hj4kl23h4j2h4jl2b4234jl23b4l2" />
-          <Block index={5} mined="25 seconds" miner="2l423kl42h3lk4n23kl4n2l34h2lh4l2h4k2l342" hash="342kj4h234h2l342hj4kl23h4j2h4jl2b4234jl23b4l2" />
-          <Block index={5} mined="25 seconds" miner="2l423kl42h3lk4n23kl4n2l34h2lh4l2h4k2l342" hash="342kj4h234h2l342hj4kl23h4j2h4jl2b4234jl23b4l2" />
-          <Block index={5} mined="25 seconds" miner="2l423kl42h3lk4n23kl4n2l34h2lh4l2h4k2l342" hash="342kj4h234h2l342hj4kl23h4j2h4jl2b4234jl23b4l2" />
+          <Block index={5} mined="25 seconds" miner="2l423kl42h3lk4n23kl4n2l34h2lh4l2h4k2l342" hash="342kj4h234h2l342hj4kl23h4j2h4jl2b4234jl23b4l2" border={ false}/>
+          <Block index={5} mined="25 seconds" miner="2l423kl42h3lk4n23kl4n2l34h2lh4l2h4k2l342" hash="342kj4h234h2l342hj4kl23h4j2h4jl2b4234jl23b4l2" border={ false}/>
+          <Block index={5} mined="25 seconds" miner="2l423kl42h3lk4n23kl4n2l34h2lh4l2h4k2l342" hash="342kj4h234h2l342hj4kl23h4j2h4jl2b4234jl23b4l2" border={ false}/>
+          <Block index={5} mined="25 seconds" miner="2l423kl42h3lk4n23kl4n2l34h2lh4l2h4k2l342" hash="342kj4h234h2l342hj4kl23h4j2h4jl2b4234jl23b4l2" border={ false}/>
+          <Block index={5} mined="25 seconds" miner="2l423kl42h3lk4n23kl4n2l34h2lh4l2h4k2l342" hash="342kj4h234h2l342hj4kl23h4j2h4jl2b4234jl23b4l2" border={ false}/>
+          <Block index={5} mined="25 seconds" miner="2l423kl42h3lk4n23kl4n2l34h2lh4l2h4k2l342" hash="342kj4h234h2l342hj4kl23h4j2h4jl2b4234jl23b4l2" border={ false}/>
         </div>
       </Card>
 
       <Card title="Transactions" href="/blockchain/transactions">
-        <div className={`${styles.contentHeader} ${styles.txnHeader}`}>
-          <div style={{width: "30%"}}>Hash</div>
-          <div style={{width: "22%"}}>Time</div>
-          <div style={{width: "20%"}}>Amount (ouc)</div>
-          <div style={{width: "19%"}}>Amount (USD)</div>
-          <div style={{width: "9%"}}>Confirmed</div>
-        </div>
+        <PendingTrxsHeader />
 
         <div className={`${styles.sectionsWrapper}`}>
-          <Transaction hash="t2lj3hr23ljhr232jlr3234234hjl2lhr3256j8lrh23jlrh23r2l" time="4/24/21 8:55 pm" amountOUC={4.76} amountUSD={0.00556} confirmed />
-          <Transaction hash="t2lj3hr23ljhr232jlr3234234hjl2lhr3256j8lrh23jlrh23r2l" time="4/24/21 8:55 pm" amountOUC={4.76} amountUSD={0.00556} confirmed={false}/>
-          <Transaction hash="t2lj3hr23ljhr232jlr3234234hjl2lhr3256j8lrh23jlrh23r2l" time="4/24/21 8:55 pm" amountOUC={4.76} amountUSD={0.00556} confirmed={true} />
-          <Transaction hash="t2lj3hr23ljhr232jlr3234234hjl2lhr3256j8lrh23jlrh23r2l" time="4/24/21 8:55 pm" amountOUC={4.76} amountUSD={0.00556} confirmed={ false}/>
-          <Transaction hash="t2lj3hr23ljhr232jlr3234234hjl2lhr3256j8lrh23jlrh23r2l" time="4/24/21 8:55 pm" amountOUC={4.76} amountUSD={0.00556} confirmed={false} />
-          <Transaction hash="t2lj3hr23ljhr232jlr3234234hjl2lhr3256j8lrh23jlrh23r2l" time="4/24/21 8:55 pm" amountOUC={4.76} amountUSD={0.00556} confirmed={false}/>
+          <Transaction hash="t2lj3hr23ljhr232jlr3234234hjl2lhr3256j8lrh23jlrh23r2l" time="4/24/21 8:55 pm" amountOUC={4.76} amountUSD={0.00556} confirmed={true} border={ false}/>
+          <Transaction hash="t2lj3hr23ljhr232jlr3234234hjl2lhr3256j8lrh23jlrh23r2l" time="4/24/21 8:55 pm" amountOUC={4.76} amountUSD={0.00556} confirmed={false} border={ false}/>
+          <Transaction hash="t2lj3hr23ljhr232jlr3234234hjl2lhr3256j8lrh23jlrh23r2l" time="4/24/21 8:55 pm" amountOUC={4.76} amountUSD={0.00556} confirmed={true} border={ false}/>
+          <Transaction hash="t2lj3hr23ljhr232jlr3234234hjl2lhr3256j8lrh23jlrh23r2l" time="4/24/21 8:55 pm" amountOUC={4.76} amountUSD={0.00556} confirmed={ false} border={ false}/>
+          <Transaction hash="t2lj3hr23ljhr232jlr3234234hjl2lhr3256j8lrh23jlrh23r2l" time="4/24/21 8:55 pm" amountOUC={4.76} amountUSD={0.00556} confirmed={false} border={ false}/>
+          <Transaction hash="t2lj3hr23ljhr232jlr3234234hjl2lhr3256j8lrh23jlrh23r2l" time="4/24/21 8:55 pm" amountOUC={4.76} amountUSD={0.00556} confirmed={false} border={ false}/>
         </div>
       </Card>
 
@@ -59,20 +51,15 @@ const GridCards: FC = () => {
       </Card>
 
       <Card title="Miners" href="/miners">
-        <div className={styles.contentHeader}>
-          <div style={{width: "36%"}}>Address</div>
-          <div style={{width: "18%"}}>Blocks Mined</div>
-          <div style={{width: "23%"}}>OUC Mined</div>
-          <div style={{width: "23%"}}>USD Mined</div>
-        </div>
+        <MinersHeader />
 
         <div className={`${styles.sectionsWrapper}`}>
-          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} />
-          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} />
-          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} />
-          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} />
-          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} />
-          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245}/>
+          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} border={ false}/>
+          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} border={ false}/>
+          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} border={ false}/>
+          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} border={ false}/>
+          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} border={ false}/>
+          <Miner minerAddress="38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ" blocksMined={5} oucMined={239.04} usdMined={3245} border={ false}/>
         </div>
       </Card>
     </div>

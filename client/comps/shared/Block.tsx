@@ -7,9 +7,10 @@ interface BlockProps {
   mined: string;
   miner: string;
   hash: string;
+  border: boolean;
 }
 
-const Block: FC<BlockProps> = ({index, mined, miner, hash}) => {
+const Block: FC<BlockProps> = ({index, mined, miner, hash, border}) => {
   return (
     <div className={styles.section}>
       <div style={{width: "15%"}}>

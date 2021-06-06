@@ -26,3 +26,7 @@
     align-items: flex-start;
     padding: 12px 0 12px 0;
 }
+
+.border {
+    border-bottom: 1px solid rgb(223, 227, 235);
+}

@@ -8,9 +8,10 @@ interface MinerProps {
   blocksMined: number;
   oucMined: number;
   usdMined: number;
+  border: boolean;
 }
 
-const Miner: FC<MinerProps> = ({minerAddress, blocksMined, oucMined, usdMined}) => {
+const Miner: FC<MinerProps> = ({minerAddress, blocksMined, oucMined, usdMined, border}) => {
   return (
     <div className={styles.section}>
 

@@ -6,6 +6,8 @@ import styles from "../../styles/walletStyles/WalletPage.module.css";
 import Head from "next/head";
 
 import headerStyles from "../../styles/homePage/Home.module.css";
+import WalletTransactions from "../../comps/wallet/WalletTransactions";
+
 const walletPage: FC = () => {
   let { address } = useRouter().query;
   address = address as string;
@@ -22,6 +24,7 @@ const walletPage: FC = () => {
       </div>
 
       <WalletInfo address={address} />
+      <WalletTransactions address={address} />
     </div>
   );
 };
