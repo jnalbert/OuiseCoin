@@ -1,6 +1,6 @@
 .wrapper {
     width: 100%;
-    padding-top: 30px;
+    padding-top: 35px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,6 +9,7 @@
 .headerWrapper {
     display: flex;
     justify-content: center;
+    padding-bottom: 28px;
 }
 
 .header {
@@ -17,7 +18,11 @@
 }
 
 .transactionsContainer {
-    width: 80%;
+    width: 75%;
     display: flex;
     flex-direction: column;
+}
+
+.trxnHeaderWrapper {
+    width: 75%;
 }

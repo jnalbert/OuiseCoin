@@ -3,6 +3,7 @@ import styles from "../../styles/walletStyles/WalletInfo.module.css";
 import hoverLinkStyles from "../../styles/Shared.module.css";
 // @ts-ignore
 import QRCode from "qrcode.react";
+import ModeChanger from "../shared/modeChanger";
 
 interface WalletInfoProps {
   address: string;
@@ -32,49 +33,24 @@ const WalletInfo: FC<WalletInfoProps> = ({ address }) => {
 
   const { transactions, totalReceived, totalSent, blocksMined, balance } = walletData;
 
-  const changeToUnselected = (e: any) => {
-    e.classList.replace(styles.selected, styles.unSelected);
+  const changeToUSD = () => {
+    setMode({ouc: null, usd: "$"})
+
+    const newBalance = balance * 0.001;
+    const newTotalReceived = totalReceived * 0.001;
+    const newTotalSent = totalSent * 0.001;
+
+    setWalletData({ ...walletData, totalReceived: newTotalReceived, totalSent: newTotalSent, balance: newBalance });
   }
 
-  const changeToSelected = (e: any) => {
-    e.classList.replace(styles.unSelected, styles.selected);
-  }
-
-  const handleChangeMode = (e: any): void => {
-    e.preventDefault();
-
-    const innerText = e.target.innerText;
-
-    if (innerText === "USD" && usd === null) {
-
-      setMode({ouc: null, usd: "$"})
-
-      const newBalance = balance * 0.001;
-      const newTotalReceived = totalReceived * 0.001;
-      const newTotalSent = totalSent * 0.001;
-
-      setWalletData({ ...walletData, totalReceived: newTotalReceived, totalSent: newTotalSent, balance: newBalance });
-
-      changeToSelected(document.getElementById("usdMode"))
-      changeToUnselected(document.getElementById("oucMode"))
-
-    } else if (innerText === "OUC" && ouc === null) {
-      setMode({ouc: "OUC", usd: null})
+  const changeToOUC = () => {
+    setMode({ouc: "OUC", usd: null})
     
-      const newBalance = balance / 0.001;
-      const newTotalReceived = totalReceived / 0.001;
-      const newTotalSent = totalSent / 0.001;
+    const newBalance = balance / 0.001;
+    const newTotalReceived = totalReceived / 0.001;
+    const newTotalSent = totalSent / 0.001;
 
-      setWalletData({ ...walletData, totalReceived: newTotalReceived, totalSent: newTotalSent, balance: newBalance });
-
-      changeToSelected(document.getElementById("oucMode"))
-
-      changeToUnselected(document.getElementById("usdMode"))
-    }
-
-    
-    
-
+    setWalletData({ ...walletData, totalReceived: newTotalReceived, totalSent: newTotalSent, balance: newBalance });
   }
 
   
@@ -90,14 +66,8 @@ const WalletInfo: FC<WalletInfoProps> = ({ address }) => {
           </div>
         </div>
 
-        <div className={styles.modeContainer}>
-            <div id="usdMode" onClick={handleChangeMode} className={[styles.modeLeft, styles.unSelected].join(" ")}>
-              USD
-            </div>
-          <div id="oucMode" onClick={ handleChangeMode } className={[styles.modeRight, styles.selected].join(" ")}>
-              OUC
-            </div>
-          </div>
+        <ModeChanger changeToUSD={changeToUSD} changeToOUC={changeToOUC} ouc={ouc} usd={usd} />
+        
       </div>
       <div className={styles.topContainer}>
         <div className={styles.qrCodeContainer}>
