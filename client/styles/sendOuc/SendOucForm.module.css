@@ -1,0 +1,120 @@
+.outerWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.formContainer {
+    width: 52%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.form {
+    width: 100%;
+}
+
+.inputContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 23px;
+}
+
+.inputContainer label {
+    font-weight: 600;
+    color: rgb(53, 63, 82);
+    padding-bottom: 8px;
+    font-size: 17px;
+}
+
+.inputContainer input, .inputContainer textarea {
+    display: block;
+    width: 100%;
+    height: 40px;
+    padding: 6px 12px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(53, 63, 82);
+    border: 1px solid rgb(223, 227, 235);
+    border-radius: 8px;
+}
+
+
+.recipientContainer {
+
+}
+
+.balanceContainer {
+    padding-bottom: 18px;
+    display: flex;
+    flex-direction: row;
+}
+
+.modeChangerWrapper {
+    padding-left: 70px;
+}
+
+.balanceSection {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.valueSection {
+    font-size: 20px;
+    padding-left: 13px;
+}
+
+.amountContainer {
+    width: 25%;
+    position: relative;
+}
+
+.amountContainer input {
+    padding-left: 22px;
+}
+
+.messageContainer textarea {
+    max-width: 100%;
+    height: 90px;
+}
+
+.staticValueUSD {
+    position:absolute;
+	left:10px;
+	font-weight:bold;
+	font-size:0.8em;
+	color:#444;
+	top:37px;
+}
+
+.staticValueOUC {
+    position:absolute;
+	left:128px;
+	font-weight:bold;
+	font-size:0.8em;
+	color:#98a1b2 !important;
+	top:37px;
+}
+
+.submitButton {
+    background-color: rgb(187, 219, 252);
+    border: 1px inset rgba(5, 24, 61, 0.1);
+    color: var(--coin-color);
+    padding: 15px 31px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.submitButton:hover {
+    background-color: rgb(136, 193, 250)
+}

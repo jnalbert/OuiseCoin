@@ -3,7 +3,7 @@ import styles from "../../styles/walletStyles/WalletInfo.module.css";
 import hoverLinkStyles from "../../styles/Shared.module.css";
 // @ts-ignore
 import QRCode from "qrcode.react";
-import ModeChanger from "../shared/modeChanger";
+import ModeChanger from "../shared/ModeChanger";
 
 interface WalletInfoProps {
   address: string;
