@@ -59,7 +59,7 @@ const SendOucForm: FC<SendOucFormProps> = ({ address }) => {
     return <label htmlFor="amount" className={styles.staticValueOUC}>OUC</label>
   }
 
-  const { register, handleSubmit } = useForm<FormValues>()
+  const { register, handleSubmit, formState: {errors} } = useForm<FormValues>()
   
   const submitForm = (data: FormValues) => {
     console.log(data);
@@ -75,12 +75,13 @@ const SendOucForm: FC<SendOucFormProps> = ({ address }) => {
             )}
           >
             <label htmlFor="recipient">Recipient</label>
-            <input {...register("recipient")} id="recipient" type="text" />
+            <input {...register("recipient", { required: "This field is required" })} id="recipient" type="text" />
+            {errors.recipient && <p className={styles.errorMessage} >{errors.recipient.message}</p>}
           </div>
 
           <div className={[styles.balanceContainer].join(" ")}>
             <div>
-              <span className={styles.balanceSection}>Balance</span>{" "}
+              <span className={styles.balanceSection}>Your Balance:</span>{" "}
               <span className={styles.valueSection}>{usd}{balance} {ouc}</span>
             </div>
             <div className={styles.modeChangerWrapper}>
@@ -89,14 +90,16 @@ const SendOucForm: FC<SendOucFormProps> = ({ address }) => {
           </div>
           <div className={[styles.amountContainer, styles.inputContainer].join(" " )}>
             <label htmlFor="amount">Amount</label>
-            <input {...register("amount")} id="amount" type="number" className={styles.inputUSDMode}/>
+            <input {...register("amount", { required: true, valueAsNumber: true, max: { value: balance, message: "Your have inefficient funds" } })} id="amount" type="number" step="any" className={styles.inputUSDMode} />
             {renderMode()}
+            {errors.amount && <p className={styles.errorMessage} >{errors.amount.message}</p>}
 
           </div>
 
           <div className={[styles.messageContainer, styles.inputContainer].join(" ")}>
             <label htmlFor="message">Message</label>
-            <textarea {...register("message")} id="message"></textarea>
+            <textarea {...register("message", { maxLength: { value: 256, message: "You have exceeded the character limit" } })} id="message"></textarea>
+            {errors.message && <p className={styles.errorMessage} >{errors.message.message}</p>}
           </div>
 
           <input className={styles.submitButton} type="submit" value="Send" />
