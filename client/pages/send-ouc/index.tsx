@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { FC } from 'react';
-import SendOucForm from '../comps/sendOuc/SendOucForm';
-import headerStyles from "../styles/homePage/Home.module.css";
+import SendOucForm from '../../comps/sendOuc/SendOucForm';
+import headerStyles from "../../styles/homePage/Home.module.css";
 
 const SendOucPage: FC = () => {
   const address = "38ovTXTuF9Ha1mjgzBFbbZnzDiNkvRSHBZ"

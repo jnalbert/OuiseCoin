@@ -1,3 +1,4 @@
+import { useRouter } from "next/dist/client/router";
 import { FC, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import styles from "../../styles/sendOuc/SendOucForm.module.css";
@@ -55,7 +56,10 @@ const SendOucForm: FC<SendOucFormProps> = ({ address }) => {
     return <label htmlFor="amount" className={styles.staticValueOUC}>OUC</label>
   }
 
-  const { register, handleSubmit, formState: {errors} } = useForm<FormValues>()
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>()
+  
+  const router = useRouter();
+  const nextHref = "/send-ouc/success"
   
   const submitForm = (data: FormValues) => {
     if (usd === "$") {
@@ -63,6 +67,8 @@ const SendOucForm: FC<SendOucFormProps> = ({ address }) => {
     }
     // send data and make and object
     console.log(data);
+
+    router.push(nextHref);
   }
 
   return (
