@@ -1,15 +1,11 @@
 import { FC, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import styles from "../../styles/sendOuc/SendOucForm.module.css";
-import ModeChanger from "../shared/ModeChanger";
+import ModeChanger from "../shared/modeChanger/ModeChanger";
+import { ModeType } from "../shared/modeChanger/ModeChangerType";
 
 interface SendOucFormProps {
   address: string;
-}
-
-interface ModeType {
-  ouc: "OUC" | null;
-  usd: "$" | null;
 }
 
 interface FormValues {
@@ -29,7 +25,7 @@ const SendOucForm: FC<SendOucFormProps> = ({ address }) => {
   const changeToOUC = () => {
     setMode({ ouc: "OUC", usd: null })
     
-    const label = document.getElementById("amount")
+    const label: any = document.getElementById("amount")
     if (label) {
       label.value = label.value / 0.001;
     }
@@ -41,7 +37,7 @@ const SendOucForm: FC<SendOucFormProps> = ({ address }) => {
   const changeToUSD = () => {
     setMode({ ouc: null, usd: "$" })
     
-    const label = document.getElementById("amount")
+    const label: any = document.getElementById("amount")
     if (label) {
       label.value = label.value * 0.001;
     }
@@ -62,6 +58,10 @@ const SendOucForm: FC<SendOucFormProps> = ({ address }) => {
   const { register, handleSubmit, formState: {errors} } = useForm<FormValues>()
   
   const submitForm = (data: FormValues) => {
+    if (usd === "$") {
+      data.amount = data.amount / 0.001;
+    }
+    // send data and make and object
     console.log(data);
   }
 
@@ -90,7 +90,7 @@ const SendOucForm: FC<SendOucFormProps> = ({ address }) => {
           </div>
           <div className={[styles.amountContainer, styles.inputContainer].join(" " )}>
             <label htmlFor="amount">Amount</label>
-            <input {...register("amount", { required: true, valueAsNumber: true, max: { value: balance, message: "Your have inefficient funds" } })} id="amount" type="number" step="any" className={styles.inputUSDMode} />
+            <input {...register("amount", { required: "This field is required", valueAsNumber: true, max: { value: balance, message: "Your have inefficient funds" } })} id="amount" type="number" step="any" className={styles.inputUSDMode} />
             {renderMode()}
             {errors.amount && <p className={styles.errorMessage} >{errors.amount.message}</p>}
 

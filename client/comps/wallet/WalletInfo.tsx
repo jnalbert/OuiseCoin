@@ -3,7 +3,8 @@ import styles from "../../styles/walletStyles/WalletInfo.module.css";
 import hoverLinkStyles from "../../styles/Shared.module.css";
 // @ts-ignore
 import QRCode from "qrcode.react";
-import ModeChanger from "../shared/ModeChanger";
+import ModeChanger from "../shared/modeChanger/ModeChanger";
+import { ModeType } from "../shared/modeChanger/ModeChangerType";
 
 interface WalletInfoProps {
   address: string;
@@ -17,10 +18,7 @@ interface WalletDataType {
   balance: number;
 }
 
-interface ModeType {
-  ouc: "OUC" | null;
-  usd: "$" | null;
-}
+
 
 const WalletInfo: FC<WalletInfoProps> = ({ address }) => {
 

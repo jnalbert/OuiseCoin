@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import styles from "../../styles/modeChanger.module.css";
+import styles from "../../../styles/modeChanger.module.css";
 
 interface ModeChangerProps {
   changeToUSD: () => void;
@@ -8,10 +8,6 @@ interface ModeChangerProps {
   usd: "$" | null;
 }
 
-interface ModeType {
-  ouc: "OUC" | null;
-  usd: "$" | null;
-}
 
 const ModeChanger: FC<ModeChangerProps> = ({changeToOUC, changeToUSD, ouc, usd}) => {
 
